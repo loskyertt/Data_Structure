@@ -5,7 +5,7 @@
 using std::cout;
 using std::endl;
 
-// 基本功能测试
+// 数组实现的二叉树：基本功能测试
 int main() {
   vector<int> arr = {40, 25, 60, INT_MAX, 30, INT_MAX, 80, INT_MAX, INT_MAX, 27};
 

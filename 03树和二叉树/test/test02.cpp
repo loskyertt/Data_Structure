@@ -4,7 +4,7 @@
 
 using std::cout;
 
-// 遍历测试
+// 数组实现的二叉树：遍历测试
 int main() {
   vector<int> arr = {40, 25, 60, INT_MAX, 30, INT_MAX, 80, INT_MAX, INT_MAX, 27};
 
