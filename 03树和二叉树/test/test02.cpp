@@ -66,5 +66,38 @@ int main() {
 
   cout << "\n";
 
+  // 中序遍历（迭代实现）
+  cout << "中序遍历（迭代实现）：";
+
+  vector<int> in_iter_res = tree.in_order_iteration();
+
+  for (int val : in_iter_res) {
+    cout << val << " ";
+  }
+
+  cout << "\n";
+
+  // 后序遍历（迭代实现，方式一）
+  cout << "后序遍历（迭代实现，方式一）：";
+
+  vector<int> post_iter_res1 = tree.post_order_iteration_1();
+
+  for (int val : post_iter_res1) {
+    cout << val << " ";
+  }
+
+  cout << "\n";
+
+  // 后序遍历（迭代实现，方式二）
+  cout << "后序遍历（迭代实现，方式二）：";
+
+  vector<int> post_iter_res2 = tree.post_order_iteration_2();
+
+  for (int val : post_iter_res2) {
+    cout << val << " ";
+  }
+
+  cout << "\n";
+
   return 0;
 }
