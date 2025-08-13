@@ -26,6 +26,9 @@ class GraphAdjLinkedList {
   /* 删除节点：把值为 val 的节点从 n0 节点后删除*/
   void remove_node(Vertex *n0, int val);
 
+  /* 删除链表 */
+  void free_linked_node(Vertex *node);
+
   /* 获取目标元素索引 */
   int get_index(int target);
 
