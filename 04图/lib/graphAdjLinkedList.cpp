@@ -1,4 +1,4 @@
-#include "linkedlist/graphAdjLinkedList.hpp"
+#include "undirectedGraph/graphAdjLinkedList.hpp"
 #include <iostream>
 #include <stdexcept>
 
@@ -48,7 +48,7 @@ void GraphAdjLinkedList::free_linked_node(Vertex *node) {
 }
 
 /* 获取目标元素索引 */
-int GraphAdjLinkedList::get_index(int target) {
+int GraphAdjLinkedList::get_index(const int target) {
 
   int index = 0;
   // 后续学了“查找”可以用其它方法搜索
@@ -63,8 +63,21 @@ int GraphAdjLinkedList::get_index(int target) {
   return -1;
 }
 
+/* 检查边是否存在 */
+bool GraphAdjLinkedList::is_existed_edge(const Vertex *vertex, const int val) {
+  while (vertex) {
+    if (vertex->val == val) {
+      return true;
+    }
+
+    vertex = vertex->next;
+  }
+
+  return false;
+}
+
 /* 打印链表 */
-void GraphAdjLinkedList::print_linkedlist(Vertex *node) {
+void GraphAdjLinkedList::print_linkedlist(const Vertex *node) const {
   cout << "[ ";
   while (node) {
     cout << node->val << " -> ";
@@ -76,7 +89,7 @@ void GraphAdjLinkedList::print_linkedlist(Vertex *node) {
 
 // public
 /* 构造方法 */
-GraphAdjLinkedList::GraphAdjLinkedList(const vector<int> vertices, const vector<vector<int>> &edges) {
+GraphAdjLinkedList::GraphAdjLinkedList(const vector<int> &vertices, const vector<vector<int>> &edges) {
   for (int vertex : vertices) {
     add_vertex(vertex);
   }
@@ -96,43 +109,41 @@ GraphAdjLinkedList::~GraphAdjLinkedList() {
 }
 
 /* 获取顶点数量 */
-int GraphAdjLinkedList::size() {
+int GraphAdjLinkedList::size() const {
   return vertices.size();
 }
 
 /* 添加边 */
-void GraphAdjLinkedList::add_edge(int src, int dist) {
-  if (get_index(src) == -1 || get_index(dist) == -1) {
-    throw out_of_range("没有 src 或 dist 节点！");
+void GraphAdjLinkedList::add_edge(const int v1, const int v2) {
+  if (get_index(v1) == -1 || get_index(v2) == -1) {
+    throw out_of_range("没有 v1 或 v2 节点！");
   }
 
-  Vertex *src_node = new Vertex(src);
-  Vertex *dist_node = new Vertex(dist);
+  Vertex *v1_node = new Vertex(v1);
+  Vertex *v2_node = new Vertex(v2);
 
-  for (auto &vertex : adjList) {
-    if (vertex->val == src) {
-      add_node(vertex, dist_node);
-    }
-    if (vertex->val == dist) {
-      add_node(vertex, src_node);
-    }
+  int v1_idx = get_index(v1);
+  int v2_idx = get_index(v2);
+
+  if (is_existed_edge(adjList[v1_idx], v2)) {
+    throw out_of_range("禁止重复添加边！");
   }
+
+  add_node(adjList[v1_idx], v2_node);
+  add_node(adjList[v2_idx], v1_node);
 }
 
 /* 删除边 */
-void GraphAdjLinkedList::remove_edge(int src, int dist) {
-  if (get_index(src) == -1 || get_index(dist) == -1) {
+void GraphAdjLinkedList::remove_edge(const int v1, const int v2) {
+  if (get_index(v1) == -1 || get_index(v2) == -1) {
     throw out_of_range("无效的边！");
   }
 
-  for (auto &vertex : adjList) {
-    if (vertex->val == src) {
-      remove_node(vertex, dist);
-    }
-    if (vertex->val == dist) {
-      remove_node(vertex, src);
-    }
-  }
+  int v1_idx = get_index(v1);
+  int v2_idx = get_index(v2);
+
+  remove_node(adjList[v1_idx], v2);
+  remove_node(adjList[v2_idx], v1);
 }
 
 /* 添加顶点 */
@@ -165,7 +176,7 @@ void GraphAdjLinkedList::remove_vertex(int vertex) {
 }
 
 /* 打印邻接表 */
-void GraphAdjLinkedList::print() {
+void GraphAdjLinkedList::print() const {
   cout << "邻接表（链表实现）：\n";
 
   for (const auto vertex : adjList) {
@@ -174,4 +185,9 @@ void GraphAdjLinkedList::print() {
   }
 
   cout << "\n";
+}
+
+/* 获取图 */
+vector<Vertex *> GraphAdjLinkedList::get_graph() const {
+  return adjList;
 }

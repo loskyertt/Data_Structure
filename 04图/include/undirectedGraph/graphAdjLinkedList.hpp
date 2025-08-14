@@ -1,5 +1,6 @@
 #pragma once
 
+#include "IGraph.hpp"
 #include <vector>
 
 using std::vector;
@@ -12,7 +13,7 @@ struct Vertex {
 };
 
 /* 邻接表（链表实现） */
-class GraphAdjLinkedList {
+class GraphAdjLinkedList : public IGraph {
 
   // adjList[i] -> vertex1 -> vertex2 -> ...
   vector<Vertex *> adjList;
@@ -30,33 +31,39 @@ class GraphAdjLinkedList {
   void free_linked_node(Vertex *node);
 
   /* 获取目标元素索引 */
-  int get_index(int target);
+  int get_index(const int target);
+
+  /* 检查边是否存在 */
+  bool is_existed_edge(const Vertex *vertex, const int val);
 
   /* 打印链表 */
-  void print_linkedlist(Vertex *node);
+  void print_linkedlist(const Vertex *node) const;
 
 public:
   /* 构造方法 */
-  GraphAdjLinkedList(const vector<int> vertices, const vector<vector<int>> &edges);
+  GraphAdjLinkedList(const vector<int> &vertices, const vector<vector<int>> &edges);
 
   /* 析构函数，释放申请的内存 */
   ~GraphAdjLinkedList();
 
   /* 获取顶点数量 */
-  int size();
+  int size() const override;
 
   /* 添加边 */
-  void add_edge(int src, int dist);
+  void add_edge(const int v1, const int v2) override;
 
   /* 删除边 */
-  void remove_edge(int src, int dist);
+  void remove_edge(const int v1, const int v2) override;
 
   /* 添加顶点 */
-  void add_vertex(int vertex);
+  void add_vertex(int vertex) override;
 
   /* 删除顶点 */
-  void remove_vertex(int vertex);
+  void remove_vertex(int vertex) override;
 
   /* 打印邻接表 */
-  void print();
+  void print() const override;
+
+  /* 获取图 */
+  vector<Vertex *> get_graph() const;
 };
