@@ -5,8 +5,10 @@
 
 using std::vector;
 
-/* 邻接矩阵 */
+/* 邻接矩阵（无向图） */
 class GraphAdjMat : public IGraph {
+
+protected:
   vector<int> vertices;       // 顶点列表
   vector<vector<int>> adjMat; // 邻接矩阵，行列索引对应“顶点索引”
 
@@ -27,10 +29,10 @@ public:
   void remove_vertex(int val) override;
 
   /* 添加边 */
-  void add_edge(int v1, int v2) override;
+  virtual void add_edge(int v1, int v2) override;
 
   /* 删除边 */
-  void remove_edge(int v1, int v2) override;
+  virtual void remove_edge(int v1, int v2) override;
 
   /* 打印邻接矩阵 */
   void print() const override;

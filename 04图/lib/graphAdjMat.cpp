@@ -5,7 +5,7 @@
 using std::cout;
 using std::out_of_range;
 
-// private
+// protected
 /* 获取目标元素索引 */
 int GraphAdjMat::get_index(const int target) {
 

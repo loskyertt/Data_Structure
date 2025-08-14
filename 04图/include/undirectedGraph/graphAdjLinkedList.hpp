@@ -15,6 +15,7 @@ struct Vertex {
 /* 邻接表（链表实现） */
 class GraphAdjLinkedList : public IGraph {
 
+protected:
   // adjList[i] -> vertex1 -> vertex2 -> ...
   vector<Vertex *> adjList;
 
