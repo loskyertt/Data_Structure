@@ -48,6 +48,8 @@ int main() {
   // 创建邻接矩阵图（无向图）
   auto matGraph = GraphFactory::createGraph(GraphType::ADJACENCY_MATRIX_UNDIRECTED, vertices, edges);
 
+  matGraph->print();
+
   // 获取图
   auto *matGraphRaw = dynamic_cast<GraphAdjMat *>(matGraph.get());
   vector<vector<int>> adjMat = matGraphRaw->get_graph();
