@@ -1,3 +1,4 @@
+#include "directedGraph/graphAdjLinkedListD.hpp"
 #include "directedGraph/graphAdjMatD.hpp"
 #include "undirectedGraph/graphAdjLinkedList.hpp"
 #include "undirectedGraph/graphAdjMat.hpp"
@@ -28,6 +29,10 @@ public:
     // 邻接矩阵（有向图）
     case GraphType::ADJACENCY_MATRIX_DIRECTED:
       return std::make_unique<GraphAdjMatD>(vertices, edges);
+
+    // 邻接链表（无向图）
+    case GraphType::ADJACENCY_LIST_DIRECTED:
+      return std::make_unique<GraphAdjLinkedListD>(vertices, edges);
 
     default:
       throw std::invalid_argument("Unknown graph type!");

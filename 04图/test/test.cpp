@@ -30,4 +30,11 @@ int main() {
   auto listGraph = GraphFactory::createGraph(GraphType::ADJACENCY_LIST_UNDIRECTED, vertices, edges);
 
   listGraph->print();
+
+  // 创建邻接表图（有向图）
+  auto listGraphD = GraphFactory::createGraph(GraphType::ADJACENCY_LIST_DIRECTED, vertices, edges);
+
+  listGraphD->print();
+
+  return 0;
 }

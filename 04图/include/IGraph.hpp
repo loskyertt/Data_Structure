@@ -19,7 +19,7 @@ public:
   virtual void remove_vertex(int val) = 0;
 
   /* 添加边 */
-  virtual void add_edge(int v1, int v2) = 0;
+  virtual void add_edge(int v1, int v2, int weight) = 0;
 
   /* 删除边 */
   virtual void remove_edge(int v1, int v2) = 0;

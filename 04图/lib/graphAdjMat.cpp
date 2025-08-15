@@ -31,8 +31,18 @@ GraphAdjMat::GraphAdjMat(const vector<int> &vertices, const vector<vector<int>> 
   }
 
   // 添加边
-  for (const vector<int> &edge : edges) {
-    add_edge(edge[0], edge[1]);
+  // 先判断边矩阵是否为空（因为子类 GraphAdjMatD 调用父类构造函数时会传入空的边矩阵）
+  if (!edges.empty()) {
+    if (edges[0].size() == 2) {
+      for (const vector<int> &edge : edges) {
+        add_edge(edge[0], edge[1]);
+      }
+    } else {
+      // edges 数组的第三列表示权重
+      for (const vector<int> &edge : edges) {
+        add_edge(edge[0], edge[1], edge[2]);
+      }
+    }
   }
 }
 
@@ -78,7 +88,7 @@ void GraphAdjMat::remove_vertex(int val) {
 }
 
 /* 添加边 */
-void GraphAdjMat::add_edge(int v1, int v2) {
+void GraphAdjMat::add_edge(int v1, int v2, int weight) {
   int i = get_index(v1);
   int j = get_index(v2);
 
@@ -87,9 +97,9 @@ void GraphAdjMat::add_edge(int v1, int v2) {
     throw out_of_range("超出邻接矩阵范围！");
   }
 
-  // 设置为 1，表示顶点 i 和顶点 j 相连
-  adjMat[i][j] = 1;
-  adjMat[j][i] = 1;
+  // 设置为权重，表示顶点 i 和顶点 j 相连
+  adjMat[i][j] = weight;
+  adjMat[j][i] = weight;
 }
 
 /* 删除边 */

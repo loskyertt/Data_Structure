@@ -8,8 +8,9 @@ using std::vector;
 /* 顶点 */
 struct Vertex {
   int val;
+  int weight;
   Vertex *next;
-  Vertex(int x) : val(x), next(nullptr) {}
+  Vertex(int x, int y) : val(x), weight(y), next(nullptr) {}
 };
 
 /* 邻接表（链表实现） */
@@ -51,16 +52,16 @@ public:
   int size() const override;
 
   /* 添加边 */
-  void add_edge(const int v1, const int v2) override;
+  virtual void add_edge(int v1, int v2, int weight = 0) override;
 
   /* 删除边 */
-  void remove_edge(const int v1, const int v2) override;
+  virtual void remove_edge(int v1, int v2) override;
 
   /* 添加顶点 */
-  void add_vertex(int vertex) override;
+  void add_vertex(int val) override;
 
   /* 删除顶点 */
-  void remove_vertex(int vertex) override;
+  void remove_vertex(int val) override;
 
   /* 打印邻接表 */
   void print() const override;

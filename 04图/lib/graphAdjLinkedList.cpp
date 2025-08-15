@@ -90,12 +90,24 @@ void GraphAdjLinkedList::print_linkedlist(const Vertex *node) const {
 // public
 /* 构造方法 */
 GraphAdjLinkedList::GraphAdjLinkedList(const vector<int> &vertices, const vector<vector<int>> &edges) {
-  for (int vertex : vertices) {
+  // 添加顶点
+  for (const int vertex : vertices) {
     add_vertex(vertex);
   }
 
-  for (auto edge : edges) {
-    add_edge(edge[0], edge[1]);
+  // 添加边
+  // 先判断边矩阵是否为空（因为子类 GraphAdjLinkedListD 调用父类构造函数时会传入空的边矩阵）
+  if (!edges.empty()) {
+    if (edges[0].size() == 2) {
+      for (const vector<int> &edge : edges) {
+        add_edge(edge[0], edge[1]);
+      }
+    } else {
+      // edges 数组的第三列表示权重
+      for (const vector<int> &edge : edges) {
+        add_edge(edge[0], edge[1], edge[2]);
+      }
+    }
   }
 }
 
@@ -114,13 +126,13 @@ int GraphAdjLinkedList::size() const {
 }
 
 /* 添加边 */
-void GraphAdjLinkedList::add_edge(const int v1, const int v2) {
+void GraphAdjLinkedList::add_edge(int v1, int v2, int weight) {
   if (get_index(v1) == -1 || get_index(v2) == -1) {
     throw out_of_range("没有 v1 或 v2 节点！");
   }
 
-  Vertex *v1_node = new Vertex(v1);
-  Vertex *v2_node = new Vertex(v2);
+  Vertex *v1_node = new Vertex(v1, weight);
+  Vertex *v2_node = new Vertex(v2, weight);
 
   int v1_idx = get_index(v1);
   int v2_idx = get_index(v2);
@@ -134,7 +146,7 @@ void GraphAdjLinkedList::add_edge(const int v1, const int v2) {
 }
 
 /* 删除边 */
-void GraphAdjLinkedList::remove_edge(const int v1, const int v2) {
+void GraphAdjLinkedList::remove_edge(int v1, int v2) {
   if (get_index(v1) == -1 || get_index(v2) == -1) {
     throw out_of_range("无效的边！");
   }
@@ -147,23 +159,24 @@ void GraphAdjLinkedList::remove_edge(const int v1, const int v2) {
 }
 
 /* 添加顶点 */
-void GraphAdjLinkedList::add_vertex(int vertex) {
-  if (get_index(vertex) != -1) {
+void GraphAdjLinkedList::add_vertex(int val) {
+  if (get_index(val) != -1) {
     throw out_of_range("禁止添加重复节点！");
   }
 
-  vertices.push_back(vertex);
-  Vertex *node = new Vertex(vertex);
+  vertices.push_back(val);
+  // 新添加的顶点权重默认设置为 0
+  Vertex *node = new Vertex(val, 0);
   adjList.push_back(node);
 }
 
 /* 删除顶点 */
-void GraphAdjLinkedList::remove_vertex(int vertex) {
-  int target = get_index(vertex);
+void GraphAdjLinkedList::remove_vertex(int val) {
+  int target = get_index(val);
 
-  // 把和 vertex 相关的边都删除
-  for (int val : vertices) {
-    remove_edge(val, vertex);
+  // 把和 val 相关的边都删除
+  for (int vertex : vertices) {
+    remove_edge(vertex, val);
   }
 
   // 把顶点从顶点列表中移除

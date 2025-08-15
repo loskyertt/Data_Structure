@@ -29,7 +29,7 @@ public:
   void remove_vertex(int val) override;
 
   /* 添加边 */
-  virtual void add_edge(int v1, int v2) override;
+  virtual void add_edge(int v1, int v2, int weight = 1) override;
 
   /* 删除边 */
   virtual void remove_edge(int v1, int v2) override;
