@@ -33,12 +33,12 @@ void ArrayBinaryTree::dfs(vector<int> &res, string order, int index) {
 }
 
 ArrayBinaryTree::ArrayBinaryTree(vector<int> arr) {
-  tree = arr;
+  m_tree = arr;
 }
 
 /* 列表容量 */
 int ArrayBinaryTree::size() {
-  return tree.size();
+  return m_tree.size();
 }
 
 /* 获取索引为 i 节点的值 */
@@ -46,7 +46,7 @@ int ArrayBinaryTree::val(int i) {
   if (i < 0 || i >= size()) {
     return INT_MAX;
   }
-  return tree[i];
+  return m_tree[i];
 }
 
 /* 获取索引为 i 节点的左子节点的索引 */
@@ -67,7 +67,7 @@ int ArrayBinaryTree::parent(int i) {
 /* bfs */
 vector<int> ArrayBinaryTree::levelOrder() {
   vector<int> res;
-  for (int val : tree) {
+  for (int val : m_tree) {
     if (val != INT_MAX) {
       res.push_back(val);
     }
@@ -106,7 +106,7 @@ vector<int> ArrayBinaryTree::post_order() {
 
 /* 前序遍历：迭代实现 */
 vector<int> ArrayBinaryTree::pre_order_iteration() {
-  if (tree.empty() || val(0) == INT_MAX) {
+  if (m_tree.empty() || val(0) == INT_MAX) {
     throw out_of_range("ERROR!");
   }
 
@@ -134,7 +134,7 @@ vector<int> ArrayBinaryTree::pre_order_iteration() {
 
 /* 中序遍历：迭代实现 */
 vector<int> ArrayBinaryTree::in_order_iteration() {
-  if (tree.empty() || val(0) == INT_MAX) {
+  if (m_tree.empty() || val(0) == INT_MAX) {
     throw out_of_range("ERROR!");
   }
 
@@ -166,7 +166,7 @@ vector<int> ArrayBinaryTree::in_order_iteration() {
 
 /* 后序遍历：迭代实现，方式一，双栈法 */
 vector<int> ArrayBinaryTree::post_order_iteration_1() {
-  if (tree.empty() || val(0) == INT_MAX) {
+  if (m_tree.empty() || val(0) == INT_MAX) {
     throw out_of_range("ERROR!");
   }
 
@@ -201,7 +201,7 @@ vector<int> ArrayBinaryTree::post_order_iteration_1() {
 
 /* 后序遍历：迭代实现，方式二，标记法 */
 vector<int> ArrayBinaryTree::post_order_iteration_2() {
-  if (tree.empty() || val(0) == INT_MAX) {
+  if (m_tree.empty() || val(0) == INT_MAX) {
     throw out_of_range("ERROR!");
   }
 

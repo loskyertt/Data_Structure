@@ -18,10 +18,10 @@ class GraphAdjLinkedList : public IGraph {
 
 protected:
   // adjList[i] -> vertex1 -> vertex2 -> ...
-  vector<Vertex *> adjList;
+  vector<Vertex *> m_adjList;
 
   // 顶点列表
-  vector<int> vertices;
+  vector<int> m_vertices;
 
   /* 添加节点：把 n1 节点添加到 n0 链表后 */
   void add_node(Vertex *n0, Vertex *n1);

@@ -28,7 +28,7 @@ void GraphAdjMatD::add_edge(int v1, int v2, int weight) {
   }
 
   // 设置权重
-  adjMat[i][j] = weight;
+  m_adjMat[i][j] = weight;
 }
 
 /* 删除边 */
@@ -41,5 +41,5 @@ void GraphAdjMatD::remove_edge(int v1, int v2) {
     throw out_of_range("超出邻接矩阵范围！");
   }
 
-  adjMat[i][j] = 0;
+  m_adjMat[i][j] = 0;
 }

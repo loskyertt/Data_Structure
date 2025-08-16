@@ -11,7 +11,7 @@ int GraphAdjMat::get_index(const int target) {
 
   int index = 0;
   // 后续学了“查找”可以用其它方法搜索
-  for (const int val : vertices) {
+  for (const int val : m_vertices) {
     if (val == target) {
       return index;
     } else {
@@ -48,21 +48,21 @@ GraphAdjMat::GraphAdjMat(const vector<int> &vertices, const vector<vector<int>> 
 
 /* 获取顶点数量 */
 int GraphAdjMat::size() const {
-  return vertices.size();
+  return m_vertices.size();
 }
 
 /* 添加顶点 */
 void GraphAdjMat::add_vertex(int val) {
   int n = size();
 
-  vertices.push_back(val);
+  m_vertices.push_back(val);
 
   // 添加一个节点，就给邻接矩阵增加一行
-  adjMat.emplace_back(vector<int>(n, 0));
+  m_adjMat.emplace_back(vector<int>(n, 0));
 
   // 然后给每一行增加一个 0（表示增加一列）
   // 注意这里 row 前要加 &，因为 row 是一个拷贝，auto row : adjMat 不会修改原始的 adjMat
-  for (auto &row : adjMat) {
+  for (auto &row : m_adjMat) {
     row.push_back(0);
   }
 }
@@ -76,13 +76,13 @@ void GraphAdjMat::remove_vertex(int val) {
   }
 
   // 擦除顶点列表中的对应顶点
-  vertices.erase(vertices.begin() + index);
+  m_vertices.erase(m_vertices.begin() + index);
 
   // 擦除邻接矩阵中对应 index 的那一行
-  adjMat.erase(adjMat.begin() + index);
+  m_adjMat.erase(m_adjMat.begin() + index);
 
   // 再擦除每一行对应 index 的元素（擦除 index 列）
-  for (auto &row : adjMat) {
+  for (auto &row : m_adjMat) {
     row.erase(row.begin() + index);
   }
 }
@@ -98,8 +98,8 @@ void GraphAdjMat::add_edge(int v1, int v2, int weight) {
   }
 
   // 设置为权重，表示顶点 i 和顶点 j 相连
-  adjMat[i][j] = weight;
-  adjMat[j][i] = weight;
+  m_adjMat[i][j] = weight;
+  m_adjMat[j][i] = weight;
 }
 
 /* 删除边 */
@@ -112,22 +112,22 @@ void GraphAdjMat::remove_edge(int v1, int v2) {
   }
 
   // 设置为 0，表示顶点 i 和顶点 j 断开连接
-  adjMat[i][j] = 0;
-  adjMat[j][i] = 0;
+  m_adjMat[i][j] = 0;
+  m_adjMat[j][i] = 0;
 }
 
 /* 打印邻接矩阵 */
 void GraphAdjMat::print() const {
 
   cout << "顶点列表：\n";
-  for (const int vertex : vertices) {
+  for (const int vertex : m_vertices) {
     cout << vertex << " ";
   }
 
   cout << "\n\n";
 
   cout << "邻接矩阵：\n";
-  for (const auto &row : adjMat) {
+  for (const auto &row : m_adjMat) {
     for (const int val : row) {
       cout << val << " ";
     }
@@ -140,5 +140,5 @@ void GraphAdjMat::print() const {
 
 /* 获取图 */
 vector<vector<int>> GraphAdjMat::get_graph() const {
-  return adjMat;
+  return m_adjMat;
 }

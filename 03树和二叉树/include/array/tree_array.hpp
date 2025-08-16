@@ -10,7 +10,7 @@ using std::vector;
 class ArrayBinaryTree {
 
 private:
-  vector<int> tree;
+  vector<int> m_tree;
 
   void dfs(vector<int> &res, string order, int index);
 

@@ -28,12 +28,12 @@ void GraphAdjLinkedListD::add_edge(int v1, int v2, int weight) {
 
   int v1_idx = get_index(v1);
 
-  if (is_existed_edge(adjList[v1_idx], v2)) {
+  if (is_existed_edge(m_adjList[v1_idx], v2)) {
     throw out_of_range("禁止重复添加边！");
   }
 
   // v1 -> v2
-  add_node(adjList[v1_idx], v2_node);
+  add_node(m_adjList[v1_idx], v2_node);
 }
 
 /* 删除边 */
@@ -44,5 +44,5 @@ void GraphAdjLinkedListD::remove_edge(int v1, int v2) {
 
   int v1_idx = get_index(v1);
 
-  remove_node(adjList[v1_idx], v2);
+  remove_node(m_adjList[v1_idx], v2);
 }
