@@ -14,7 +14,7 @@ void dfs(const vector<int> &vertices, const vector<vector<int>> &adjMat, const i
     cout << vertices[index] << " ";
     visited[index] = true;
 
-    for (int i = 0; i < vertices.size(); i++) {
+    for (int i = 0; i < vertices.size(); ++i) {
       if (adjMat[index][i] == 1 && visited[i] == false) {
         lambda(i);
       }

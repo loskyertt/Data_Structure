@@ -23,7 +23,8 @@ void bfs(const vector<int> &vertices, const vector<vector<int>> &adjMat, const i
 
     cout << vertices[index] << " ";
 
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < size; ++i) {
+      // 如果有连接顶点，且该顶点未被访问过
       if (adjMat[index][i] == 1 && visited[i] == false) {
         q.push(i);
         visited[i] = true;

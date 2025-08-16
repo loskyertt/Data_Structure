@@ -9,22 +9,16 @@ using std::out_of_range;
 /* 获取目标元素索引 */
 int GraphAdjMat::get_index(const int target) {
 
-  int index = 0;
-  // 后续学了“查找”可以用其它方法搜索
-  for (const int val : m_vertices) {
-    if (val == target) {
-      return index;
-    } else {
-      index += 1;
-    }
-  }
+  // 用哈希表来降低查找的时间复杂度
+  auto it = m_vertex2idx.find(target);
 
-  return -1;
+  return (it != m_vertex2idx.end()) ? it->second : -1;
 }
 
 // public
 /* 构造方法*/
 GraphAdjMat::GraphAdjMat(const vector<int> &vertices, const vector<vector<int>> &edges) {
+
   // 添加顶点
   for (const int vertex : vertices) {
     add_vertex(vertex);
@@ -48,7 +42,7 @@ GraphAdjMat::GraphAdjMat(const vector<int> &vertices, const vector<vector<int>> 
 
 /* 获取顶点数量 */
 int GraphAdjMat::size() const {
-  return m_vertices.size();
+  return m_size;
 }
 
 /* 添加顶点 */
@@ -56,6 +50,9 @@ void GraphAdjMat::add_vertex(int val) {
   int n = size();
 
   m_vertices.push_back(val);
+
+  // 记录顶点到索引的映射
+  m_vertex2idx[val] = m_size;
 
   // 添加一个节点，就给邻接矩阵增加一行
   m_adjMat.emplace_back(vector<int>(n, 0));
@@ -65,18 +62,29 @@ void GraphAdjMat::add_vertex(int val) {
   for (auto &row : m_adjMat) {
     row.push_back(0);
   }
+
+  // 每添加一个顶点，m_size 加 1
+  m_size++;
 }
 
 /* 删除顶点 */
 void GraphAdjMat::remove_vertex(int val) {
   int index = get_index(val);
 
-  if (index < 0 || index >= size()) {
-    throw out_of_range("顶点不存在！");
+  if (index == -1) {
+    throw out_of_range("顶点不存在，删除顶点失败！");
   }
 
-  // 擦除顶点列表中的对应顶点
+  // 注意：这会使得 m_vertices 中位于 index 之后的所有顶点向前移动一位（索引减 1），所以要更新 m_vertex2idx
   m_vertices.erase(m_vertices.begin() + index);
+
+  // 删除 m_vertex2idx 中对应的“顶点：索引”
+  m_vertex2idx.erase(val);
+
+  // 更新后续顶点的索引，为了与顶点列表相对应
+  for (int k = index; k < m_vertices.size(); ++k) {
+    m_vertex2idx[m_vertices[k]] = k;
+  }
 
   // 擦除邻接矩阵中对应 index 的那一行
   m_adjMat.erase(m_adjMat.begin() + index);
@@ -85,6 +93,9 @@ void GraphAdjMat::remove_vertex(int val) {
   for (auto &row : m_adjMat) {
     row.erase(row.begin() + index);
   }
+
+  // 每移除一个顶点，m_size 减 1
+  m_size--;
 }
 
 /* 添加边 */
@@ -92,9 +103,9 @@ void GraphAdjMat::add_edge(int v1, int v2, int weight) {
   int i = get_index(v1);
   int j = get_index(v2);
 
-  if (i < 0 || j < 0 || i >= size() || j >= size() || i == j) {
+  if (i == -1 || j == -1) {
     // adjMat[i][i] （对角线）没有意义
-    throw out_of_range("超出邻接矩阵范围！");
+    throw out_of_range("顶点不存在，增加边失败！");
   }
 
   // 设置为权重，表示顶点 i 和顶点 j 相连
@@ -107,8 +118,8 @@ void GraphAdjMat::remove_edge(int v1, int v2) {
   int i = get_index(v1);
   int j = get_index(v2);
 
-  if (i < 0 || j < 0 || i >= size() || j >= size() || i == j) {
-    throw out_of_range("超出邻接矩阵范围！");
+  if (i == -1 || j == -1) {
+    throw out_of_range("顶点不存在，删除边失败！");
   }
 
   // 设置为 0，表示顶点 i 和顶点 j 断开连接

@@ -13,7 +13,7 @@ void dfs(const vector<int> &vertices, const vector<Vertex *> &adjList, const int
   vector<bool> visited(size, false);
 
   unordered_map<int, int> vertex2idx;
-  for (int i = 0; i < size; i++) {
+  for (int i = 0; i < size; ++i) {
     vertex2idx[vertices[i]] = i;
   }
 

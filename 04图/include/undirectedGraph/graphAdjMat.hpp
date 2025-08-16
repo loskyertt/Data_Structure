@@ -1,16 +1,20 @@
 #pragma once
 
 #include "IGraph.hpp"
+#include <unordered_map>
 #include <vector>
 
+using std::unordered_map;
 using std::vector;
 
 /* 邻接矩阵（无向图） */
 class GraphAdjMat : public IGraph {
 
 protected:
-  vector<int> m_vertices;       // 顶点列表
-  vector<vector<int>> m_adjMat; // 邻接矩阵，行列索引对应“顶点索引”
+  vector<int> m_vertices;               // 顶点列表
+  vector<vector<int>> m_adjMat;         // 邻接矩阵，行列索引对应“顶点索引”
+  unordered_map<int, int> m_vertex2idx; // 记录顶点的索引
+  int m_size = 0;                       // 记录顶点数量
 
   /* 获取目标元素索引 */
   int get_index(const int target);

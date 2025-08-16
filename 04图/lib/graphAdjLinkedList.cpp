@@ -5,7 +5,7 @@
 using std::cout;
 using std::out_of_range;
 
-// private
+// protected
 /* 添加节点：把 n1 节点添加到 n0 链表后 */
 void GraphAdjLinkedList::add_node(Vertex *n0, Vertex *n1) {
   if (n0->next == nullptr) {

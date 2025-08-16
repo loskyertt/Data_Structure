@@ -18,7 +18,7 @@ void bfs(const vector<int> &vertices, const vector<Vertex *> &adjList, const int
 
   // 用哈希表，将顶点值映射到索引，查找时 O(1)
   unordered_map<int, int> vertex2idx;
-  for (int i = 0; i < size; i++) {
+  for (int i = 0; i < size; ++i) {
     vertex2idx[vertices[i]] = i;
   }
 
