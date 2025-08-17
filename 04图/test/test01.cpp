@@ -5,7 +5,7 @@ using std::cout;
 using std::endl;
 using std::exception;
 
-// 测试邻接矩阵
+// 测试邻接矩阵（无向图）
 int main() {
   // 初始化顶点和边
   vector<int> vertices = {1, 2, 3, 4, 5};

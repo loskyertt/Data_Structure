@@ -1,4 +1,5 @@
 #include "undirectedGraph/graphAdjMat.hpp"
+#include <climits>
 #include <iostream>
 #include <stdexcept>
 
@@ -55,13 +56,15 @@ void GraphAdjMat::add_vertex(int val) {
   m_vertex2idx[val] = m_size;
 
   // 添加一个节点，就给邻接矩阵增加一行
-  m_adjMat.emplace_back(vector<int>(n, 0));
+  m_adjMat.emplace_back(vector<int>(n, INT_MAX));
 
   // 然后给每一行增加一个 0（表示增加一列）
   // 注意这里 row 前要加 &，因为 row 是一个拷贝，auto row : adjMat 不会修改原始的 adjMat
   for (auto &row : m_adjMat) {
-    row.push_back(0);
+    row.push_back(INT_MAX);
   }
+
+  m_adjMat[m_size][m_size] = 0;
 
   // 每添加一个顶点，m_size 加 1
   m_size++;
@@ -122,9 +125,9 @@ void GraphAdjMat::remove_edge(int v1, int v2) {
     throw out_of_range("顶点不存在，删除边失败！");
   }
 
-  // 设置为 0，表示顶点 i 和顶点 j 断开连接
-  m_adjMat[i][j] = 0;
-  m_adjMat[j][i] = 0;
+  // 设置为 INT_MAX ，表示顶点 i 和顶点 j 断开连接
+  m_adjMat[i][j] = INT_MAX;
+  m_adjMat[j][i] = INT_MAX;
 }
 
 /* 打印邻接矩阵 */
@@ -140,7 +143,11 @@ void GraphAdjMat::print() const {
   cout << "邻接矩阵：\n";
   for (const auto &row : m_adjMat) {
     for (const int val : row) {
-      cout << val << " ";
+      if (val == INT_MAX) {
+        cout << "∞" << " ";
+      } else {
+        cout << val << " ";
+      }
     }
 
     cout << "\n";

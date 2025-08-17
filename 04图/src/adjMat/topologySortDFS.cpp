@@ -23,7 +23,7 @@ vector<int> get_indegree(const vector<int> &vertices, const vector<vector<int>> 
   return indegree;
 }
 
-/* 拓扑排序（dfs 实现） */
+/* 拓扑排序（dfs 实现），不太推荐用函数递归实现，可以换成显示栈来模拟 */
 void topology_sort(const vector<int> &vertices, const vector<vector<int>> &adjMat) {
 
   int size = vertices.size();

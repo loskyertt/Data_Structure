@@ -1,4 +1,5 @@
 #include "directedGraph/graphAdjMatD.hpp"
+#include <climits>
 #include <stdexcept>
 
 using std::out_of_range;
@@ -38,5 +39,5 @@ void GraphAdjMatD::remove_edge(int v1, int v2) {
   if (i == -1 || j == -1) {
     throw out_of_range("顶点不存在，删除边失败！");
   }
-  m_adjMat[i][j] = 0;
+  m_adjMat[i][j] = INT_MAX;
 }

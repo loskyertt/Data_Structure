@@ -1,11 +1,11 @@
-#include "undirectedGraph/graphAdjLinkedList.hpp"
+#include "directedGraph/graphAdjLinkedListD.hpp"
 #include <iostream>
 
 using std::cout;
 using std::endl;
 using std::exception;
 
-// 测试邻接表（无向图）
+// 测试邻接表（有向图）
 int main() {
   // 初始化顶点和边
   vector<int> vertices = {1, 2, 3, 4, 5};
@@ -17,7 +17,7 @@ int main() {
       {2, 5},
       {2, 4},
       {4, 5}};
-  GraphAdjLinkedList graph(vertices, edges);
+  GraphAdjLinkedListD graph(vertices, edges);
 
   cout << "初始邻接表：\n";
   graph.print();
