@@ -6,7 +6,8 @@ using std::cout;
 using std::queue;
 using std::unordered_map;
 
-vector<int> get_indegree(const vector<int> &vertices, const vector<Vertex *> &adjList) {
+template <typename VertexType>
+vector<int> get_indegree(const vector<VertexType> &vertices, const vector<Vertex<VertexType> *> &adjList) {
   int size = vertices.size();
 
   // 建立“顶点：索引”映射
@@ -23,7 +24,7 @@ vector<int> get_indegree(const vector<int> &vertices, const vector<Vertex *> &ad
     node = node->next;
 
     while (node) {
-      int index = vertex2idx[node->val];
+      int index = vertex2idx[node->v];
       ++indegree[index];
       node = node->next;
     }
@@ -32,7 +33,8 @@ vector<int> get_indegree(const vector<int> &vertices, const vector<Vertex *> &ad
   return indegree;
 }
 
-void topology_sort(const vector<int> &vertices, const vector<Vertex *> &adjList) {
+template <typename VertexType>
+void topology_sort(const vector<VertexType> &vertices, const vector<Vertex<VertexType> *> &adjList) {
 
   int size = vertices.size();
 
@@ -59,9 +61,9 @@ void topology_sort(const vector<int> &vertices, const vector<Vertex *> &adjList)
 
     cout << vertices[index] << " ";
 
-    Vertex *node = adjList[index]->next;
+    Vertex<VertexType> *node = adjList[index]->next;
     while (node) {
-      int in_index = vertex2idx[node->val];
+      int in_index = vertex2idx[node->v];
       --indegree[in_index];
 
       if (indegree[in_index] == 0) {
@@ -78,7 +80,7 @@ void topology_sort(const vector<int> &vertices, const vector<Vertex *> &adjList)
 int main() {
   // 初始化顶点和边
   vector<int> vertices = {1, 2, 3, 4, 5};
-  vector<vector<int>> edges = {
+  vector<Edge<int>> edges = {
       {1, 3},
       {1, 5},
       {3, 2},
@@ -87,13 +89,13 @@ int main() {
       {5, 4}};
 
   // 创建邻接表图（有向图）
-  auto listGraphD = GraphFactory::createGraph(GraphType::ADJACENCY_LIST_DIRECTED, vertices, edges);
+  auto listGraphD = GraphFactory<int>::createGraph(GraphType::ADJACENCY_LIST_DIRECTED, vertices, edges);
 
   listGraphD->print();
 
   // 获取图
-  auto *listGraphRaw = dynamic_cast<GraphAdjLinkedListD *>(listGraphD.get());
-  vector<Vertex *> adjList = listGraphRaw->get_graph();
+  auto *listGraphRaw = dynamic_cast<GraphAdjLinkedListD<int> *>(listGraphD.get());
+  vector<Vertex<int> *> adjList = listGraphRaw->get_graph();
 
   cout << "BFS 遍历：\n";
   topology_sort(vertices, adjList);

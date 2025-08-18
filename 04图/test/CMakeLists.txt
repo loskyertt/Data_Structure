@@ -17,7 +17,10 @@ foreach(v ${TESTS})
   add_executable(${target_name} ${v} ${LIB_SOURCES})
 
   # 头文件路径
-  target_include_directories(${target_name} PUBLIC ${PROJECT_SOURCE_DIR}/include)
+  target_include_directories(${target_name}
+    PUBLIC
+    ${PROJECT_SOURCE_DIR}/include
+  )
 endforeach()
 
 

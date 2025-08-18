@@ -6,44 +6,46 @@
 using std::vector;
 
 /* 顶点 */
+template <typename VertexType>
 struct Vertex {
-  int val;
+  VertexType v;
   int weight;
   Vertex *next;
-  Vertex(int x, int y) : val(x), weight(y), next(nullptr) {}
+  Vertex(VertexType x, int y) : v(x), weight(y), next(nullptr) {}
 };
 
 /* 邻接表（链表实现） */
-class GraphAdjLinkedList : public IGraph {
+template <typename VertexType>
+class GraphAdjLinkedList : public IGraph<VertexType> {
 
 protected:
   // adjList[i] -> vertex1 -> vertex2 -> ...
-  vector<Vertex *> m_adjList;
+  vector<Vertex<VertexType> *> m_adjList;
 
   // 顶点列表
-  vector<int> m_vertices;
+  vector<VertexType> m_vertices;
 
   /* 添加节点：把 n1 节点添加到 n0 链表后 */
-  void add_node(Vertex *n0, Vertex *n1);
+  void add_node(Vertex<VertexType> *n0, Vertex<VertexType> *n1);
 
   /* 删除节点：把值为 val 的节点从 n0 节点后删除*/
-  void remove_node(Vertex *n0, int val);
+  void remove_node(Vertex<VertexType> *n0, VertexType val);
 
   /* 删除链表 */
-  void free_linked_node(Vertex *node);
+  void free_linked_node(Vertex<VertexType> *node);
 
   /* 获取目标元素索引 */
-  int get_index(const int target);
+  int get_index(const VertexType &target);
 
   /* 检查边是否存在 */
-  bool is_existed_edge(const Vertex *vertex, const int val);
+  bool is_existed_edge(const Vertex<VertexType> *vertex, const VertexType val);
 
   /* 打印链表 */
-  void print_linkedlist(const Vertex *node) const;
+  void print_linkedlist(const Vertex<VertexType> *node) const;
 
 public:
   /* 构造方法 */
-  GraphAdjLinkedList(const vector<int> &vertices, const vector<vector<int>> &edges);
+  GraphAdjLinkedList(const vector<VertexType> &vertices, const vector<Edge<VertexType>> &edges);
 
   /* 析构函数，释放申请的内存 */
   ~GraphAdjLinkedList();
@@ -52,20 +54,23 @@ public:
   int size() const override;
 
   /* 添加边 */
-  virtual void add_edge(int v1, int v2, int weight = 0) override;
+  virtual void add_edge(VertexType v1, VertexType v2, int weight = 0) override;
 
   /* 删除边 */
-  virtual void remove_edge(int v1, int v2) override;
+  virtual void remove_edge(VertexType v1, VertexType v2) override;
 
   /* 添加顶点 */
-  void add_vertex(int val) override;
+  void add_vertex(VertexType v) override;
 
   /* 删除顶点 */
-  void remove_vertex(int val) override;
+  void remove_vertex(VertexType v) override;
 
   /* 打印邻接表 */
   void print() const override;
 
   /* 获取图 */
-  vector<Vertex *> get_graph() const;
+  vector<Vertex<VertexType> *> get_graph() const;
 };
+
+extern template class GraphAdjLinkedList<int>;
+extern template class GraphAdjLinkedList<char>;

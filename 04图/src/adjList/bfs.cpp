@@ -8,7 +8,8 @@ using std::queue;
 using std::unordered_map;
 
 /* bfs 遍历 */
-void bfs(const vector<int> &vertices, const vector<Vertex *> &adjList, const int start_index) {
+template <typename VertexType>
+void bfs(const vector<VertexType> &vertices, const vector<Vertex<VertexType> *> &adjList, const int start_index) {
   int size = vertices.size();
   vector<bool> visited(size, false);
 
@@ -28,10 +29,10 @@ void bfs(const vector<int> &vertices, const vector<Vertex *> &adjList, const int
 
     cout << vertices[index] << " ";
 
-    Vertex *node = adjList[index]->next;
+    Vertex<VertexType> *node = adjList[index]->next;
     while (node) {
       // 找到顶点列表中值为 node->val 的顶点的索引
-      int next_idx = vertex2idx[node->val];
+      int next_idx = vertex2idx[node->v];
 
       if (visited[next_idx] == false) {
         q.push(next_idx);
@@ -48,7 +49,7 @@ void bfs(const vector<int> &vertices, const vector<Vertex *> &adjList, const int
 int main() {
   // 初始化顶点和边
   vector<int> vertices = {1, 2, 3, 4, 5};
-  vector<vector<int>> edges = {
+  vector<Edge<int>> edges = {
       {1, 3},
       {1, 5},
       {3, 2},
@@ -57,13 +58,13 @@ int main() {
       {5, 4}};
 
   // 创建邻接表图（无向图）
-  auto listGraph = GraphFactory::createGraph(GraphType::ADJACENCY_LIST_UNDIRECTED, vertices, edges);
+  auto listGraph = GraphFactory<int>::createGraph(GraphType::ADJACENCY_LIST_UNDIRECTED, vertices, edges);
 
   listGraph->print();
 
   // 获取图
-  auto *listGraphRaw = dynamic_cast<GraphAdjLinkedList *>(listGraph.get());
-  vector<Vertex *> adjList = listGraphRaw->get_graph();
+  auto *listGraphRaw = dynamic_cast<GraphAdjLinkedList<int> *>(listGraph.get());
+  vector<Vertex<int> *> adjList = listGraphRaw->get_graph();
 
   bfs(vertices, adjList, 0);
 

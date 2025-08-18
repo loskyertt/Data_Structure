@@ -5,39 +5,39 @@
 using std::out_of_range;
 
 // 先初始化顶点，边稍后添加
-GraphAdjMatD::GraphAdjMatD(const vector<int> &vertices, const vector<vector<int>> &edges) : GraphAdjMat(vertices, {}) {
-  if (edges[0].size() == 2) {
-    for (const vector<int> &edge : edges) {
-      add_edge(edge[0], edge[1]);
-    }
-  } else {
-    // edges 数组的第三列表示权重
-    for (const vector<int> &edge : edges) {
-      add_edge(edge[0], edge[1], edge[2]);
-    }
+template <typename VertexType>
+GraphAdjMatD<VertexType>::GraphAdjMatD(const vector<VertexType> &vertices, const vector<Edge<VertexType>> &edges) : GraphAdjMat<VertexType>(vertices, {}) {
+  for (const auto &[v1, v2, weight] : edges) {
+    add_edge(v1, v2, weight);
   }
 }
 
 /* 添加边 */
-void GraphAdjMatD::add_edge(int v1, int v2, int weight) {
-  int i = get_index(v1);
-  int j = get_index(v2);
+template <typename VertexType>
+void GraphAdjMatD<VertexType>::add_edge(VertexType v1, VertexType v2, int weight) {
+  int i = this->get_index(v1);
+  int j = this->get_index(v2);
 
   if (i == -1 || j == -1) {
     throw out_of_range("顶点不存在，删除边失败！");
   }
 
   // 设置权重
-  m_adjMat[i][j] = weight;
+  this->m_adjMat[i][j] = weight;
 }
 
 /* 删除边 */
-void GraphAdjMatD::remove_edge(int v1, int v2) {
-  int i = get_index(v1);
-  int j = get_index(v2);
+template <typename VertexType>
+void GraphAdjMatD<VertexType>::remove_edge(VertexType v1, VertexType v2) {
+  int i = this->get_index(v1);
+  int j = this->get_index(v2);
 
   if (i == -1 || j == -1) {
     throw out_of_range("顶点不存在，删除边失败！");
   }
-  m_adjMat[i][j] = INT_MAX;
+
+  this->m_adjMat[i][j] = INT_MAX;
 }
+
+template class GraphAdjMatD<int>;
+template class GraphAdjMatD<char>;

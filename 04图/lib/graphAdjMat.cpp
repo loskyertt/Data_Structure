@@ -8,7 +8,8 @@ using std::out_of_range;
 
 // protected
 /* 获取目标元素索引 */
-int GraphAdjMat::get_index(const int target) {
+template <typename VertexType>
+int GraphAdjMat<VertexType>::get_index(const VertexType &target) {
 
   // 用哈希表来降低查找的时间复杂度
   auto it = m_vertex2idx.find(target);
@@ -18,42 +19,35 @@ int GraphAdjMat::get_index(const int target) {
 
 // public
 /* 构造方法*/
-GraphAdjMat::GraphAdjMat(const vector<int> &vertices, const vector<vector<int>> &edges) {
+template <typename VertexType>
+GraphAdjMat<VertexType>::GraphAdjMat(const vector<VertexType> &vertices, const vector<Edge<VertexType>> &edges) {
 
   // 添加顶点
-  for (const int vertex : vertices) {
+  for (const auto vertex : vertices) {
     add_vertex(vertex);
   }
 
   // 添加边
-  // 先判断边矩阵是否为空（因为子类 GraphAdjMatD 调用父类构造函数时会传入空的边矩阵）
-  if (!edges.empty()) {
-    if (edges[0].size() == 2) {
-      for (const vector<int> &edge : edges) {
-        add_edge(edge[0], edge[1]);
-      }
-    } else {
-      // edges 数组的第三列表示权重
-      for (const vector<int> &edge : edges) {
-        add_edge(edge[0], edge[1], edge[2]);
-      }
-    }
+  for (const auto &[v1, v2, weight] : edges) {
+    add_edge(v1, v2, weight);
   }
 }
 
 /* 获取顶点数量 */
-int GraphAdjMat::size() const {
+template <typename VertexType>
+int GraphAdjMat<VertexType>::size() const {
   return m_size;
 }
 
 /* 添加顶点 */
-void GraphAdjMat::add_vertex(int val) {
+template <typename VertexType>
+void GraphAdjMat<VertexType>::add_vertex(VertexType v) {
   int n = size();
 
-  m_vertices.push_back(val);
+  m_vertices.push_back(v);
 
   // 记录顶点到索引的映射
-  m_vertex2idx[val] = m_size;
+  m_vertex2idx[v] = m_size;
 
   // 添加一个节点，就给邻接矩阵增加一行
   m_adjMat.emplace_back(vector<int>(n, INT_MAX));
@@ -71,8 +65,9 @@ void GraphAdjMat::add_vertex(int val) {
 }
 
 /* 删除顶点 */
-void GraphAdjMat::remove_vertex(int val) {
-  int index = get_index(val);
+template <typename VertexType>
+void GraphAdjMat<VertexType>::remove_vertex(VertexType v) {
+  int index = get_index(v);
 
   if (index == -1) {
     throw out_of_range("顶点不存在，删除顶点失败！");
@@ -82,7 +77,7 @@ void GraphAdjMat::remove_vertex(int val) {
   m_vertices.erase(m_vertices.begin() + index);
 
   // 删除 m_vertex2idx 中对应的“顶点：索引”
-  m_vertex2idx.erase(val);
+  m_vertex2idx.erase(v);
 
   // 更新后续顶点的索引，为了与顶点列表相对应
   for (int k = index; k < m_vertices.size(); ++k) {
@@ -102,7 +97,8 @@ void GraphAdjMat::remove_vertex(int val) {
 }
 
 /* 添加边 */
-void GraphAdjMat::add_edge(int v1, int v2, int weight) {
+template <typename VertexType>
+void GraphAdjMat<VertexType>::add_edge(VertexType v1, VertexType v2, int weight) {
   int i = get_index(v1);
   int j = get_index(v2);
 
@@ -117,7 +113,8 @@ void GraphAdjMat::add_edge(int v1, int v2, int weight) {
 }
 
 /* 删除边 */
-void GraphAdjMat::remove_edge(int v1, int v2) {
+template <typename VertexType>
+void GraphAdjMat<VertexType>::remove_edge(VertexType v1, VertexType v2) {
   int i = get_index(v1);
   int j = get_index(v2);
 
@@ -131,10 +128,11 @@ void GraphAdjMat::remove_edge(int v1, int v2) {
 }
 
 /* 打印邻接矩阵 */
-void GraphAdjMat::print() const {
+template <typename VertexType>
+void GraphAdjMat<VertexType>::print() const {
 
   cout << "顶点列表：\n";
-  for (const int vertex : m_vertices) {
+  for (const auto vertex : m_vertices) {
     cout << vertex << " ";
   }
 
@@ -157,6 +155,11 @@ void GraphAdjMat::print() const {
 }
 
 /* 获取图 */
-vector<vector<int>> GraphAdjMat::get_graph() const {
+template <typename VertexType>
+vector<vector<int>> GraphAdjMat<VertexType>::get_graph() const {
   return m_adjMat;
 }
+
+// 显式实例化定义
+template class GraphAdjMat<int>;
+template class GraphAdjMat<char>;

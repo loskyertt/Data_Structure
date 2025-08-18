@@ -17,8 +17,8 @@ project("图")
 
 message("\n--------------------------------------------")
 
-add_subdirectory(./test)
+# add_subdirectory(./lib)
 
-add_subdirectory(./lib)
+add_subdirectory(./test)
 
 add_subdirectory(./src)

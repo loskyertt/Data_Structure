@@ -7,7 +7,8 @@ using std::cout;
 using std::queue;
 
 /* bfs 遍历 */
-void bfs(const vector<int> &vertices, const vector<vector<int>> &adjMat, const int start_index) {
+template <typename VertexType>
+void bfs(const vector<VertexType> &vertices, const vector<vector<int>> &adjMat, const int start_index) {
   int size = vertices.size();
 
   // 访问标记，visited 的索引与 vertices 的索引相对应，表示是否访问过顶点
@@ -38,7 +39,7 @@ void bfs(const vector<int> &vertices, const vector<vector<int>> &adjMat, const i
 int main() {
   // 初始化顶点和边
   vector<int> vertices = {1, 2, 3, 4, 5};
-  vector<vector<int>> edges = {
+  vector<Edge<int>> edges = {
       {1, 3},
       {1, 5},
       {3, 2},
@@ -47,12 +48,12 @@ int main() {
       {5, 4}};
 
   // 创建邻接矩阵图（无向图）
-  auto matGraph = GraphFactory::createGraph(GraphType::ADJACENCY_MATRIX_UNDIRECTED, vertices, edges);
+  auto matGraph = GraphFactory<int>::createGraph(GraphType::ADJACENCY_MATRIX_UNDIRECTED, vertices, edges);
 
   matGraph->print();
 
   // 获取图
-  auto *matGraphRaw = dynamic_cast<GraphAdjMat *>(matGraph.get());
+  auto *matGraphRaw = dynamic_cast<GraphAdjMat<int> *>(matGraph.get());
   vector<vector<int>> adjMat = matGraphRaw->get_graph();
 
   cout << "邻接矩阵的 bfs 遍历：\n";

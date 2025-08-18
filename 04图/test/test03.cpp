@@ -9,7 +9,7 @@ using std::exception;
 int main() {
   // 初始化顶点和边
   vector<int> vertices = {1, 2, 3, 4, 5};
-  vector<vector<int>> edges = {
+  vector<Edge<int>> edges = {
       // 这里是按照顶点元素值来进行连接
       {1, 3},
       {1, 5},

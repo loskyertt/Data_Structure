@@ -4,45 +4,46 @@
 using std::out_of_range;
 
 // 先初始化顶点，边稍后添加
-GraphAdjLinkedListD::GraphAdjLinkedListD(const vector<int> &vertices, const vector<vector<int>> &edges) : GraphAdjLinkedList(vertices, {}) {
-  if (edges[0].size() == 2) {
-    for (const vector<int> &edge : edges) {
-      add_edge(edge[0], edge[1]);
-    }
-  } else {
-    // edges 数组的第三列表示权重
-    for (const vector<int> &edge : edges) {
-      add_edge(edge[0], edge[1], edge[2]);
-    }
+template <typename VertexType>
+GraphAdjLinkedListD<VertexType>::GraphAdjLinkedListD(const vector<VertexType> &vertices, const vector<Edge<VertexType>> &edges) : GraphAdjLinkedList<VertexType>(vertices, {}) {
+  for (const auto &[v1, v2, weight] : edges) {
+    this->add_edge(v1, v2, weight);
   }
 }
 
 // 重写有向图下的边操作
 /* 添加边 */
-void GraphAdjLinkedListD::add_edge(int v1, int v2, int weight) {
-  if (get_index(v1) == -1 || get_index(v2) == -1) {
+template <typename VertexType>
+void GraphAdjLinkedListD<VertexType>::add_edge(VertexType v1, VertexType v2, int weight) {
+  int v1_idx = this->get_index(v1);
+  int v2_idx = this->get_index(v2);
+
+  if (v1_idx == -1 || v2_idx == -1) {
     throw out_of_range("没有 v1 或 v2 节点！");
   }
 
-  Vertex *v2_node = new Vertex(v2, weight);
+  Vertex<VertexType> *v2_node = new Vertex(v2, weight);
 
-  int v1_idx = get_index(v1);
-
-  if (is_existed_edge(m_adjList[v1_idx], v2)) {
+  if (this->is_existed_edge(this->m_adjList[v1_idx], v2)) {
     throw out_of_range("禁止重复添加边！");
   }
 
   // v1 -> v2
-  add_node(m_adjList[v1_idx], v2_node);
+  this->add_node(this->m_adjList[v1_idx], v2_node);
 }
 
 /* 删除边 */
-void GraphAdjLinkedListD::remove_edge(int v1, int v2) {
-  if (get_index(v1) == -1 || get_index(v2) == -1) {
+template <typename VertexType>
+void GraphAdjLinkedListD<VertexType>::remove_edge(VertexType v1, VertexType v2) {
+  int v1_idx = this->get_index(v1);
+  int v2_idx = this->get_index(v2);
+
+  if (v1_idx == -1 || v2_idx == -1) {
     throw out_of_range("无效的边！");
   }
 
-  int v1_idx = get_index(v1);
-
-  remove_node(m_adjList[v1_idx], v2);
+  this->remove_node(this->m_adjList[v1_idx], v2);
 }
+
+template class GraphAdjLinkedListD<int>;
+template class GraphAdjLinkedListD<char>;
