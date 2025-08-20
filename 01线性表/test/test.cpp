@@ -1,8 +1,10 @@
 #include "utils.hpp"
+#include <exception>
 #include <iostream>
 
 using std::cout;
-// using std::endl;
+using std::endl;
+using std::exception;
 
 void test01() {
   vector<int> nums = {1, 2, 3, 4, 5, 6};
@@ -43,7 +45,11 @@ void test02() {
   print_linked_list(n0);
 
   // 无效操作
-  remove(n4);
+  try {
+    remove(n4);
+  } catch (const exception &e) {
+    cout << "异常捕获（删除空节点）：" << e.what() << endl;
+  }
 }
 
 int main() {

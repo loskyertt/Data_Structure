@@ -1,8 +1,10 @@
 # for each "test/x.cpp", generate target "x"
 message("CMakeLists.txt for test directory")
 
-# 所有 lib 下的实现文件
-file(GLOB LIB_SOURCES ${PROJECT_SOURCE_DIR}/lib/*.cpp)
+set(GRAPH_LIBS
+  graph_linkedlist
+  graph_mat
+)
 
 # 所有测试文件
 file(GLOB_RECURSE TESTS ./*.cpp)
@@ -13,14 +15,13 @@ foreach(v ${TESTS})
   string(REPLACE "/" "_" target_name ${relative_path})
   get_filename_component(target_name ${target_name} NAME_WE)
 
-  # 把 lib 源文件也加进来
-  add_executable(${target_name} ${v} ${LIB_SOURCES})
+  add_executable(${target_name} ${v})
 
   # 头文件路径
-  target_include_directories(${target_name}
-    PUBLIC
-    ${PROJECT_SOURCE_DIR}/include
-  )
+  target_include_directories(${target_name} PUBLIC ${PROJECT_SOURCE_DIR}/include)
+
+  # 链接所有 graph 库
+  target_link_libraries(${target_name} PUBLIC ${GRAPH_LIBS})
 endforeach()
 
 

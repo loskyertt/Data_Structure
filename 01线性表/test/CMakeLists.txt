@@ -1,9 +1,8 @@
 # for each "test/x.cpp", generate target "x"
 message("CMakeLists.txt for test directory")
 
-set(ALL_LIBS
-  queue
-  stack
+set(UTILS_LIBS
+  utils
 )
 
 # 所有测试文件
@@ -20,9 +19,8 @@ foreach(v ${TESTS})
   # 头文件路径
   target_include_directories(${target_name} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
-  target_link_libraries(${target_name} PRIVATE ${ALL_LIBS})
-
-  # target_compile_options(${target_name} PRIVATE -Wall -Wextra -Werror)
+  # 链接所有 graph 库
+  target_link_libraries(${target_name} PUBLIC ${UTILS_LIBS})
 endforeach()
 
 
