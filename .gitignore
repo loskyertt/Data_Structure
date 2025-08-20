@@ -80,3 +80,6 @@ palette.map
 
 # public/index.html for httpd
 public/
+
+# CLion
+.idea/
