@@ -2,10 +2,8 @@
 #include <iostream>
 #include <stdexcept>
 
-using bst::TreeNode;
-
 /* 中序遍历打印，正好是从小到大的顺序  */
-void bst::in_order(TreeNode *root) {
+void bst::in_order(bst::TreeNode *root) {
   if (root == nullptr) {
     return;
   }
@@ -16,7 +14,7 @@ void bst::in_order(TreeNode *root) {
 }
 
 /* 释放内存 */
-void bst::free_node(TreeNode *root) {
+void bst::free_node(bst::TreeNode *root) {
   if (root == nullptr) {
     return;
   }
@@ -29,7 +27,7 @@ void bst::free_node(TreeNode *root) {
 // --------------------------------------------------------------------------
 
 /* 查找操作：递归实现 */
-bool bst::is_existed_recur(TreeNode *root, int target) {
+bool bst::is_existed_recur(bst::TreeNode *root, int target) {
   if (root == nullptr) {
     return false;
   }
@@ -49,9 +47,9 @@ bool bst::is_existed_recur(TreeNode *root, int target) {
 }
 
 /* 插入节点：递归实现 */
-void bst::insert_recur(TreeNode *&root, int target) {
+void bst::insert_recur(bst::TreeNode *&root, int target) {
   if (root == nullptr) {
-    root = new TreeNode(target);
+    root = new bst::TreeNode(target);
     return;
   }
 
@@ -69,7 +67,7 @@ void bst::insert_recur(TreeNode *&root, int target) {
 
 /* 删除操作：递归实现 */
 // 注意这里传入的是“指针的引用”，相当于是参数的“别名”
-void bst::remove_recur(TreeNode *&root, int target) {
+void bst::remove_recur(bst::TreeNode *&root, int target) {
   if (root == nullptr) {
     throw std::out_of_range("没有目标节点！");
   }
@@ -89,7 +87,7 @@ void bst::remove_recur(TreeNode *&root, int target) {
     }
     // 情况二：target 节点度为 2，无法直接删除它，而需要使用一个节点替换该节点
     else if (root->left && root->right) {
-      TreeNode *temp = root->right; // 往当前节点的右子树找（确保替换后仍是 BST）
+      bst::TreeNode *temp = root->right; // 往当前节点的右子树找（确保替换后仍是 BST）
       // 找到右子树里最小的节点
       while (temp->left) {
         temp = temp->left;
@@ -99,7 +97,7 @@ void bst::remove_recur(TreeNode *&root, int target) {
     }
     // 情况三：target 节点度为 1，把该节点替换为该节点的子节点即可
     else {
-      TreeNode *child = root->left != nullptr ? root->left : root->right;
+      bst::TreeNode *child = root->left != nullptr ? root->left : root->right;
       delete root;
       // 让 root 指向 child 的地址
       root = child;
@@ -110,7 +108,7 @@ void bst::remove_recur(TreeNode *&root, int target) {
 // --------------------------------------------------------------------------
 
 /* 查找操作：迭代实现 */
-bool bst::is_existed_iter(TreeNode *root, int target) {
+bool bst::is_existed_iter(bst::TreeNode *root, int target) {
   if (root == nullptr) {
     return false;
   }
@@ -134,13 +132,13 @@ bool bst::is_existed_iter(TreeNode *root, int target) {
 }
 
 /* 插入操作：迭代插入 */
-void bst::insert_iter(TreeNode *root, int target) {
+void bst::insert_iter(bst::TreeNode *root, int target) {
   if (root == nullptr) {
-    root = new TreeNode(target);
+    root = new bst::TreeNode(target);
     return;
   }
 
-  TreeNode *prev = nullptr; // 记录 root 的前一个节点
+  bst::TreeNode *prev = nullptr; // 记录 root 的前一个节点
   // 循环完毕后，root 指向 nullptr
   while (root) {
     prev = root;
@@ -153,7 +151,7 @@ void bst::insert_iter(TreeNode *root, int target) {
     }
   }
 
-  root = new TreeNode(target);
+  root = new bst::TreeNode(target);
   if (target < prev->val) {
     prev->left = root;
   } else {
@@ -162,10 +160,10 @@ void bst::insert_iter(TreeNode *root, int target) {
 }
 
 /* 删除节点：迭代实现 */
-// 这里只能出入 root 的引用，因为会涉及到删除根节点的情况
-void bst::remove_iter(TreeNode *&root, int target) {
-  TreeNode *prev = nullptr;
-  TreeNode *curr = root;
+// 这里只能传入 root 的引用，因为会涉及到删除根节点的情况
+void bst::remove_iter(bst::TreeNode *&root, int target) {
+  bst::TreeNode *prev = nullptr;
+  bst::TreeNode *curr = root;
 
   // 1. 找到目标节点
   while (curr && curr->val != target) {
@@ -199,8 +197,8 @@ void bst::remove_iter(TreeNode *&root, int target) {
   // 情况二：度为 2
   else if (curr->left && curr->right) {
     // 找右子树的最小节点
-    TreeNode *p = curr;
-    TreeNode *succ = curr->right;
+    bst::TreeNode *p = curr; // succ 的父节点
+    bst::TreeNode *succ = curr->right;
     while (succ->left) {
       p = succ;
       succ = succ->left;
@@ -208,6 +206,7 @@ void bst::remove_iter(TreeNode *&root, int target) {
     // 用后继节点值替换
     curr->val = succ->val;
     // 删除后继节点（succ 度一定是 0 或 1）
+    // 这里分两种情况：succ 是 p 的左孩子；succ 是 p 的右孩子（可以画图帮助理解）
     if (p->left == succ) {
       p->left = succ->right;
     } else {
@@ -217,7 +216,7 @@ void bst::remove_iter(TreeNode *&root, int target) {
   }
   // 情况三：度为 1
   else {
-    TreeNode *child = (curr->left ? curr->left : curr->right);
+    bst::TreeNode *child = (curr->left ? curr->left : curr->right);
     if (prev == nullptr) {
       // 删除的是根节点
       delete curr;

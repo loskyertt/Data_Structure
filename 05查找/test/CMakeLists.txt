@@ -3,6 +3,7 @@ message("CMakeLists.txt for test directory")
 
 set(TREE_LIBS
   BinarySearchTree
+  BalancingBST
 )
 
 # 所有测试文件
