@@ -24,12 +24,12 @@ void insert_recur(TreeNode *&root, int target);
 void remove_recur(TreeNode *&root, int target);
 
 /* 查找操作：迭代实现 */
-bool is_existed_iter(TreeNode *root, int val);
+bool is_existed_iter(TreeNode *root, int target);
 
 /* 插入操作：迭代插入 */
-void insert_iter(TreeNode *&root, int val);
+void insert_iter(TreeNode *root, int target);
 
 /* 删除节点：迭代实现 */
-void remove_iter(TreeNode *root, int num);
+void remove_iter(TreeNode *&root, int target);
 
 } // namespace bst
