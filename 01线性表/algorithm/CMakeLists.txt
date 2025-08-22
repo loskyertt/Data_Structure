@@ -1,16 +1,16 @@
-# for each "src/x.cpp", generate target "x"
-message("CMakeLists.txt for src directory")
+# for each "algorithm/x.cpp", generate target "x"
+message("CMakeLists.txt for test directory")
 
-set(GRAPH_LIBS
-  graph_linkedlist
-  graph_mat
+set(UTILS_LIBS
+  utils
 )
 
-file(GLOB_RECURSE SRCS ./*.cpp)
+# 所有测试文件
+file(GLOB_RECURSE SRCS *.cpp)
 
 foreach(v ${SRCS})
   message("Processing: ${v}")
-  file(RELATIVE_PATH relative_path ${PROJECT_SOURCE_DIR}/src ${v})
+  file(RELATIVE_PATH relative_path ${PROJECT_SOURCE_DIR}/algorithm ${v})
   string(REPLACE "/" "_" target_name ${relative_path})
   get_filename_component(target_name ${target_name} NAME_WE)
 
@@ -19,8 +19,8 @@ foreach(v ${SRCS})
   # 头文件路径
   target_include_directories(${target_name} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
-  # 链接所有 graph 库
-  target_link_libraries(${target_name} PUBLIC ${GRAPH_LIBS})
+  target_link_libraries(${target_name} PUBLIC ${UTILS_LIBS})
+
 endforeach()
 
 

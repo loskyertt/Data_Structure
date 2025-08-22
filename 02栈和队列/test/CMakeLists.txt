@@ -7,7 +7,7 @@ set(ALL_LIBS
 )
 
 # 所有测试文件
-file(GLOB_RECURSE TESTS ./*.cpp)
+file(GLOB_RECURSE TESTS *.cpp)
 
 foreach(v ${TESTS})
   message("Processing: ${v}")
