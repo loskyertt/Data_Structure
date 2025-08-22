@@ -1,17 +1,12 @@
-# for each "test/x.cpp", generate target "x"
+# for each "src/x.cpp", generate target "x"
 message("CMakeLists.txt for test directory")
 
-set(TREE_LIBS
-  BinarySearchTree
-  BalancingBST
-)
-
 # 所有测试文件
-file(GLOB_RECURSE TESTS *.cpp)
+file(GLOB_RECURSE SRCS *.cpp)
 
-foreach(v ${TESTS})
+foreach(v ${SRCS})
   message("Processing: ${v}")
-  file(RELATIVE_PATH relative_path ${PROJECT_SOURCE_DIR}/test ${v})
+  file(RELATIVE_PATH relative_path ${PROJECT_SOURCE_DIR}/src ${v})
   string(REPLACE "/" "_" target_name ${relative_path})
   get_filename_component(target_name ${target_name} NAME_WE)
 
@@ -20,8 +15,6 @@ foreach(v ${TESTS})
   # 头文件路径
   target_include_directories(${target_name} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
-  # 链接所有 graph 库
-  target_link_libraries(${target_name} PUBLIC ${TREE_LIBS})
 endforeach()
 
 

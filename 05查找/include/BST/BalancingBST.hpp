@@ -1,6 +1,6 @@
 #pragma once
 
-namespace bbst {
+namespace avl {
 
 struct TreeNode {
   int val;
@@ -14,7 +14,7 @@ struct TreeNode {
 void in_order(TreeNode *root);
 
 /* 释放内存 */
-void free_node(TreeNode *root);
+void free_node(TreeNode *&root);
 
 /* 获取当前节点高度 */
 int get_height(TreeNode *node);
@@ -40,4 +40,4 @@ void insert(TreeNode *&root, int target);
 /* 删除节点 */
 void remove(TreeNode *&root, int target);
 
-} // namespace bbst
+} // namespace avl

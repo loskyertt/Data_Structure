@@ -1,6 +1,7 @@
 #pragma once
 
 namespace bst {
+
 struct TreeNode {
   int val;
   TreeNode *left;
@@ -12,7 +13,7 @@ struct TreeNode {
 void in_order(bst::TreeNode *root);
 
 /* 释放内存 */
-void free_node(bst::TreeNode *root);
+void free_node(bst::TreeNode *&root);
 
 /* 查找操作：递归实现 */
 bool is_existed_recur(TreeNode *root, int target);

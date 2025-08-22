@@ -1,4 +1,4 @@
-#include "BinarySearchTree.hpp"
+#include "BST/BinarySearchTree.hpp"
 #include <iostream>
 #include <stdexcept>
 
@@ -14,7 +14,7 @@ void bst::in_order(bst::TreeNode *root) {
 }
 
 /* 释放内存 */
-void bst::free_node(bst::TreeNode *root) {
+void bst::free_node(bst::TreeNode *&root) {
   if (root == nullptr) {
     return;
   }
@@ -22,6 +22,8 @@ void bst::free_node(bst::TreeNode *root) {
   free_node(root->left);
   free_node(root->right);
   delete root;
+
+  root = nullptr;
 }
 
 // --------------------------------------------------------------------------

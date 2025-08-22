@@ -1,4 +1,4 @@
-#include "BinarySearchTree.hpp"
+#include "BST/BinarySearchTree.hpp"
 #include <iostream>
 
 /* 测试二叉搜索树的操作（迭代实现） */

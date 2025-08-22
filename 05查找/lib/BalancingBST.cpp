@@ -1,10 +1,10 @@
-#include "BalancingBST.hpp"
+#include "BST/BalancingBST.hpp"
 #include <algorithm>
 #include <iostream>
 #include <stdexcept>
 
 /* 中序遍历 */
-void bbst::in_order(bbst::TreeNode *root) {
+void avl::in_order(avl::TreeNode *root) {
   if (root == nullptr) {
     return;
   }
@@ -15,7 +15,7 @@ void bbst::in_order(bbst::TreeNode *root) {
 }
 
 /* 释放内存 */
-void bbst::free_node(bbst::TreeNode *root) {
+void avl::free_node(avl::TreeNode *&root) {
   if (root == nullptr) {
     return;
   }
@@ -23,26 +23,28 @@ void bbst::free_node(bbst::TreeNode *root) {
   free_node(root->left);
   free_node(root->right);
   delete root;
+
+  root = nullptr;
 }
 
 // --------------------------------------------------------------------------
 
 /* 获取当前节点高度 */
-int bbst::get_height(bbst::TreeNode *node) {
+int avl::get_height(avl::TreeNode *node) {
 
   // 空节点高度为 -1，叶节点高度为 0
   return node == nullptr ? -1 : node->height;
 }
 
 /* 更新节点高度 */
-void bbst::update_height(bbst::TreeNode *node) {
+void avl::update_height(avl::TreeNode *node) {
   // 当前节点高度 = max(左子树高度, 右子树高度) + 1
   node->height = std::max(get_height(node->left), get_height(node->right)) + 1;
 }
 
 /* 计算平衡因子 */
 // 设平衡因子为 f，则一颗 AVL 树的任意节点的平衡因子均满足 -1 <= f <= 1
-int bbst::get_balanced_factor(bbst::TreeNode *node) {
+int avl::get_balanced_factor(avl::TreeNode *node) {
   // 空节点平衡因子为 0
   if (node == nullptr) {
     return 0;
@@ -54,9 +56,9 @@ int bbst::get_balanced_factor(bbst::TreeNode *node) {
 
 // 旋转的一定是首个失衡节点（即 |f| > 1）
 /* LL：右旋 */
-bbst::TreeNode *bbst::rotate_right(bbst::TreeNode *node) {
-  bbst::TreeNode *child = node->left;
-  bbst::TreeNode *grand_child = child->right;
+avl::TreeNode *avl::rotate_right(avl::TreeNode *node) {
+  avl::TreeNode *child = node->left;
+  avl::TreeNode *grand_child = child->right;
 
   // 以 child 为原点，将 node 向右旋转
   child->right = node; // 这就是叫“右旋”的原因
@@ -71,9 +73,9 @@ bbst::TreeNode *bbst::rotate_right(bbst::TreeNode *node) {
 }
 
 /* RR：左旋 */
-bbst::TreeNode *bbst::rotate_left(bbst::TreeNode *node) {
-  bbst::TreeNode *child = node->right;
-  bbst::TreeNode *grand_child = child->left;
+avl::TreeNode *avl::rotate_left(avl::TreeNode *node) {
+  avl::TreeNode *child = node->right;
+  avl::TreeNode *grand_child = child->left;
 
   // 以 child 为原点，将 node 向左旋转
   child->left = node; // 这就是叫“左旋”的原因
@@ -88,7 +90,7 @@ bbst::TreeNode *bbst::rotate_left(bbst::TreeNode *node) {
 }
 
 /* 旋转 */
-bbst::TreeNode *bbst::rotate(bbst::TreeNode *node) {
+avl::TreeNode *avl::rotate(avl::TreeNode *node) {
 
   // 获取节点 node 的平衡因子
   int balanced_factor = get_balanced_factor(node);
@@ -124,9 +126,9 @@ bbst::TreeNode *bbst::rotate(bbst::TreeNode *node) {
 }
 
 /* 插入节点 */
-void bbst::insert(bbst::TreeNode *&root, int target) {
+void avl::insert(avl::TreeNode *&root, int target) {
   if (root == nullptr) {
-    root = new bbst::TreeNode(target);
+    root = new avl::TreeNode(target);
     return;
   }
 
@@ -149,7 +151,7 @@ void bbst::insert(bbst::TreeNode *&root, int target) {
 }
 
 /* 删除节点 */
-void bbst::remove(bbst::TreeNode *&root, int target) {
+void avl::remove(avl::TreeNode *&root, int target) {
   if (root == nullptr) {
     throw std::out_of_range("没有目标节点！");
   }
@@ -168,7 +170,7 @@ void bbst::remove(bbst::TreeNode *&root, int target) {
     }
     // 情况二：target 节点度为 2，无法直接删除它，而需要使用一个节点替换该节点
     else if (root->left && root->right) {
-      bbst::TreeNode *temp = root->right; // 往当前节点的右子树找（确保替换后仍是 BST）
+      avl::TreeNode *temp = root->right; // 往当前节点的右子树找（确保替换后仍是 BST）
       // 找到右子树里最小的节点
       while (temp->left) {
         temp = temp->left;
@@ -178,7 +180,7 @@ void bbst::remove(bbst::TreeNode *&root, int target) {
     }
     // 情况三：target 节点度为 1，把该节点替换为该节点的子节点即可
     else {
-      bbst::TreeNode *child = root->left != nullptr ? root->left : root->right;
+      avl::TreeNode *child = root->left != nullptr ? root->left : root->right;
       delete root;
       root = child; // 更新父节点指向子节点
     }
