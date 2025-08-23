@@ -4,6 +4,7 @@ message("CMakeLists.txt for test directory")
 set(TREE_LIBS
   BinarySearchTree
   BalancingBST
+  maxHeap
 )
 
 # 所有测试文件
@@ -20,7 +21,6 @@ foreach(v ${TESTS})
   # 头文件路径
   target_include_directories(${target_name} PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
-  # 链接所有 graph 库
   target_link_libraries(${target_name} PUBLIC ${TREE_LIBS})
 endforeach()
 
