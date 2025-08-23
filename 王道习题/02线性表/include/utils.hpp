@@ -16,3 +16,6 @@ void insert(Node *n0, Node *n1);
 
 /* 删除节点 n0 之后的首个节点 */
 void remove(Node *n0);
+
+/* 打印数组 */
+void print_vector(const vector<int> &nums);

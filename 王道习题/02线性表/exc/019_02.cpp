@@ -1,3 +1,4 @@
+#include "utils.hpp"
 #include <iostream>
 #include <utility>
 #include <vector>
@@ -22,16 +23,11 @@ int main() {
 
   std::cout << "nums1 逆序后：";
   reverse(nums1);
-  for (int val : nums1) {
-    std::cout << val << " ";
-  }
+  print_vector(nums1);
 
   std::cout << "\n";
 
   std::cout << "nums2 逆序后：";
   reverse(nums2);
-  for (int val : nums2) {
-    std::cout << val << " ";
-  }
-  std::cout << "\n";
+  print_vector(nums2);
 }

@@ -1,3 +1,4 @@
+#include "utils.hpp"
 #include <climits>
 #include <exception>
 #include <iostream>
@@ -34,10 +35,7 @@ int main() {
   remove_min(nums);
 
   std::cout << "删除最小值后：";
-  for (int val : nums) {
-    std::cout << val << " ";
-  }
-  std::cout << "\n";
+  print_vector(nums);
 
   std::vector<int> empty_nums = {};
   try {

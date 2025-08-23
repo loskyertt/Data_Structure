@@ -53,3 +53,15 @@ void remove(Node *n0) {
 
   delete temp;
 }
+
+/* 打印数组 */
+void print_vector(const vector<int> &nums) {
+  if (nums.empty()) {
+    throw out_of_range("数组为空！");
+  }
+
+  for (int val : nums) {
+    cout << val << " ";
+  }
+  cout << "\n";
+}
