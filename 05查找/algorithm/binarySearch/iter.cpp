@@ -18,10 +18,13 @@ int binary_search(const std::vector<int> &nums, const int &target) {
     }
     // 找到 target
     else {
+      // 若找到，i j mid 索引
+      std::cout << "找到 target, i = " << i << ", j = " << j << ", mid = " << mid << "\n";
       return mid;
     }
   }
 
+  std::cout << "没找到 target, i = " << i << ", j = " << j << "\n";
   return -1; // 表示没找到
 }
 
@@ -38,6 +41,8 @@ int main() {
   std::cout << "元素 10 的索引：" << binary_search(nums1, 10) << "\n";
   std::cout << "元素 2 的索引：" << binary_search(nums1, 2) << "\n";
   std::cout << "元素 19 的索引：" << binary_search(nums1, 19) << "\n";
+  std::cout << "元素 11 的索引（不存在）：" << binary_search(nums1, 11) << "\n";
+  std::cout << "元素 1 的索引（不存在）：" << binary_search(nums1, 1) << "\n";
 
   std::cout << "\n";
 
@@ -45,4 +50,5 @@ int main() {
   std::cout << "元素 10 的索引：" << binary_search(nums2, 10) << "\n";
   std::cout << "元素 2 的索引：" << binary_search(nums2, 2) << "\n";
   std::cout << "元素 19 的索引：" << binary_search(nums2, 19) << "\n";
+  std::cout << "元素 1 的索引（不存在）：" << binary_search(nums2, 1) << "\n";
 }
