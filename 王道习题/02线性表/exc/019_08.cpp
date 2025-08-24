@@ -3,7 +3,7 @@
 #include <utility>
 #include <vector>
 
-/* 019_08 */
+/* 二分查找，并插入元素 */
 void find_x(std::vector<int> &nums, int x) {
   int i = 0, j = nums.size() - 1;
 
