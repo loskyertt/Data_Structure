@@ -17,7 +17,7 @@ void find_intersection(const std::vector<int> &A, const std::vector<int> &B, con
       ++k;
     } else {
       // 记录最大的元素
-      int max_num = std::max(A[i], std::max(B[j], C[k]));
+      int max_num = std::max({A[i], B[j], C[k]});
       // 只移动小的元素的指针（因为数组中的元素是递增的）
       if (A[i] < max_num) {
         ++i;

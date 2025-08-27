@@ -20,9 +20,8 @@ void print_linked_list(Node *head) {
   cout << "nullptr" << endl;
 }
 
-/* 数组转链表 */
+/* 数组转链表：带头节点 */
 Node *create_linked_list(vector<int> &nums) {
-  // 带头节点
   Node *head = new Node(INT_MAX);
   Node *current = head;
 
