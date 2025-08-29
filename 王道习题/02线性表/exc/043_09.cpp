@@ -36,7 +36,9 @@ void find_intersections(Node *node_a, Node *node_b) {
   }
 }
 
-int main() {
+void test1() {
+  std::cout << "测试一：\n";
+
   std::vector<int> nums_a = {1, 2, 4, 6, 8, 9, 10, 13, 15, 16};
   std::vector<int> nums_b = {2, 3, 4, 5, 8, 10, 12, 13, 14, 16};
 
@@ -51,4 +53,8 @@ int main() {
   std::cout << "构成交集的 node_a: ";
   find_intersections(node_a, node_b);
   print_linked_list(node_a->next);
+}
+
+int main() {
+  test1();
 }

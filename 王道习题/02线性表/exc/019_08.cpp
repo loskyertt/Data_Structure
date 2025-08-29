@@ -31,33 +31,64 @@ void find_x(std::vector<int> &nums, int x) {
   }
 }
 
-int main() {
+void test1() {
+  std::cout << "测试一（奇数个元素）：\n";
+
   // 奇数个元素
-  std::vector<int> nums1 = {1, 3, 4, 5, 6};
+  std::vector<int> nums = {1, 3, 4, 5, 6};
+
+  std::cout << "找 3（存在）: ";
+  find_x(nums, 3);
+  print_vector(nums);
+}
+
+void test2() {
+  std::cout << "测试二（偶数个元素）：\n";
 
   // 偶数个元素
-  std::vector<int> nums2 = {1, 3, 4, 5, 6, 7};
+  std::vector<int> nums = {1, 3, 4, 5, 6, 7};
 
-  std::cout << "找 3: ";
-  find_x(nums1, 3);
-  print_vector(nums1);
+  std::cout << "找 6（存在）: ";
+  find_x(nums, 6);
+  print_vector(nums);
+}
 
-  std::cout << "找 6: ";
-  find_x(nums2, 6);
-  print_vector(nums2);
+void test3() {
+  std::cout << "测试三（奇数个元素）：\n";
 
   // 元素不存在的情况
   // 奇数个元素
-  std::vector<int> nums3 = {1, 3, 4, 5, 6};
-
-  // 偶数个元素
-  std::vector<int> nums4 = {1, 3, 4, 5, 7, 8};
+  std::vector<int> nums = {1, 3, 4, 5, 6};
 
   std::cout << "找 2（不存在）: ";
-  find_x(nums3, 2);
-  print_vector(nums3);
+  find_x(nums, 2);
+  print_vector(nums);
+}
+
+void test4() {
+  std::cout << "测试四（偶数个元素）：\n";
+
+  // 元素不存在的情况
+  // 偶数个元素
+  std::vector<int> nums = {1, 3, 4, 5, 7, 8};
 
   std::cout << "找 6（不存在）: ";
-  find_x(nums4, 6);
-  print_vector(nums4);
+  find_x(nums, 6);
+  print_vector(nums);
+}
+
+int main() {
+  test1();
+
+  std::cout << "\n";
+
+  test2();
+
+  std::cout << "\n";
+
+  test3();
+
+  std::cout << "\n";
+
+  test4();
 }

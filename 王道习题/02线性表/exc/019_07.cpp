@@ -30,25 +30,44 @@ void swap_ele(std::vector<int> &nums, int m, int n) {
   }
 }
 
-int main() {
+void test1() {
+  std::cout << "测试一：\n";
+
   // m = 3, n = 2
-  std::vector<int> nums1 = {1, 2, 3, 6, 7};
+  std::vector<int> nums = {1, 2, 3, 6, 7};
+
+  swap_ele(nums, 3, 2);
+  print_vector(nums);
+}
+
+void test2() {
+  std::cout << "测试二：";
 
   // m = 3, n = 3
-  std::vector<int> nums2 = {1, 2, 3, 6, 7, 8};
+  std::vector<int> nums = {1, 2, 3, 6, 7, 8};
+
+  swap_ele(nums, 3, 3);
+  print_vector(nums);
+}
+
+void test3() {
+  std::cout << "测试三：";
 
   // m = 2, n = 3
-  std::vector<int> nums3 = {1, 2, 6, 7, 8};
+  std::vector<int> nums = {1, 2, 6, 7, 8};
 
-  std::cout << "情况一：";
-  swap_ele(nums1, 3, 2);
-  print_vector(nums1);
+  swap_ele(nums, 2, 3);
+  print_vector(nums);
+}
 
-  std::cout << "情况二：";
-  swap_ele(nums2, 3, 3);
-  print_vector(nums2);
+int main() {
+  test1();
 
-  std::cout << "情况三：";
-  swap_ele(nums3, 2, 3);
-  print_vector(nums3);
+  std::cout << "\n";
+
+  test2();
+
+  std::cout << "\n";
+
+  test3();
 }

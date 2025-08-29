@@ -25,23 +25,37 @@ void remove_target(Node *node, int a, int b) {
   }
 }
 
-int main() {
-  std::vector<int> nums1 = {1, 3, 2, 6, 4, 9, 6, 7};
+void test1() {
+  std::cout << "测试一：\n";
 
-  Node *node1 = create_linked_list(nums1);
+  std::vector<int> nums = {1, 3, 2, 6, 4, 9, 6, 7};
+
+  Node *node = create_linked_list(nums);
 
   std::cout << "初始链表：";
-  print_linked_list(node1->next);
+  print_linked_list(node->next);
 
   std::cout << "删除节点后的链表：";
-  remove_target(node1, 3, 7);
-  print_linked_list(node1->next);
+  remove_target(node, 3, 7);
+  print_linked_list(node->next);
+}
 
-  std::vector<int> nums2 = {1, 3, 2, 6, 4, 9, 6, 7};
+void test2() {
+  std::cout << "测试二：\n";
 
-  Node *node2 = create_linked_list(nums2);
+  std::vector<int> nums = {1, 3, 2, 6, 4, 9, 6, 7};
+
+  Node *node = create_linked_list(nums);
 
   std::cout << "删除全部节点：";
-  remove_target(node2, 0, 16);
-  print_linked_list(node2->next);
+  remove_target(node, 0, 16);
+  print_linked_list(node->next);
+}
+
+int main() {
+  test1();
+
+  std::cout << "\n";
+
+  test2();
 }

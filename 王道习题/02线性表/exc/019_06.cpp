@@ -31,11 +31,17 @@ std::vector<int> merge_nums(const std::vector<int> &nums1, const std::vector<int
   return res;
 }
 
-int main() {
+void test1() {
+  std::cout << "测试一：\n";
+
   std::vector<int> nums1 = {1, 3, 4, 5, 7, 9, 10, 12, 14};
   std::vector<int> nums2 = {1, 2, 3, 4, 8, 11, 15};
 
   std::cout << "合并后的数组：";
   vector<int> res = merge_nums(nums1, nums2);
   print_vector(res);
+}
+
+int main() {
+  test1();
 }

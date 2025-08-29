@@ -18,7 +18,9 @@ void remove_ele(std::vector<int> &nums, int x) {
   nums.resize(i);
 }
 
-int main() {
+void test1() {
+  std::cout << "测试一：\n";
+
   std::vector<int> nums = {3, 5, 3, 2, 9, 10, 3, 4};
 
   // 删除元素 3
@@ -26,4 +28,8 @@ int main() {
   remove_ele(nums, 3);
 
   print_vector(nums);
+}
+
+int main() {
+  test1();
 }

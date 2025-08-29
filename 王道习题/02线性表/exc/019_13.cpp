@@ -16,7 +16,7 @@ int find_num(const std::vector<int> &nums) {
   }
 
   // 创建大小为 max_val + 1 的数组，用于标记 1 ~ max_val 是否出现
-  std::vector<bool> present(max_val + 1, false); // 更语义化：用 bool
+  std::vector<bool> present(max_val + 1, false);
 
   for (int num : nums) {
     if (num > 0) {
@@ -35,12 +35,26 @@ int find_num(const std::vector<int> &nums) {
   return max_val + 1;
 }
 
+void test1() {
+  std::cout << "测试一（偶数个元素）：\n";
+
+  std::vector<int> nums = {-5, 3, 2, 3};
+
+  std::cout << "nums 中从未出现的最小正数是：" << find_num(nums) << "\n"; // 1
+}
+
+void test2() {
+  std::cout << "测试二（奇数个元素）：\n";
+
+  std::vector<int> nums = {1, 2, 3};
+
+  std::cout << "nums 中从未出现的最小正数是：" << find_num(nums) << "\n"; // 4
+}
+
 int main() {
-  std::vector<int> nums1 = {-5, 3, 2, 3};
-  std::vector<int> nums2 = {1, 2, 3};
+  test1();
 
-  std::cout << "nums1 中从未出现的最小正数是：" << find_num(nums1) << "\n"; // 1
-  std::cout << "nums2 中从未出现的最小正数是：" << find_num(nums2) << "\n"; // 4
+  std::cout << "\n";
 
-  return 0;
+  test2();
 }

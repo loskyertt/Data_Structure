@@ -62,34 +62,42 @@ void remove_min_node(Node *head) {
 }
 } // namespace way2
 
-int main() {
+void test1() {
+  std::cout << "测试一：\n";
+
   // 方式一
-  std::vector<int> nums1 = {1, 4, 3, 6, 7, 5, 2};
+  std::vector<int> nums = {1, 4, 3, 6, 7, 5, 2};
 
   // 数组转链表（带头节点：INT_MAX 作为头节点标识）
-  Node *head1 = create_linked_list(nums1);
+  Node *head = create_linked_list(nums);
 
   // 当前链表
   std::cout << "初始链表：";
-  print_linked_list(head1->next);
+  print_linked_list(head->next);
 
   std::cout << "删除最小值后链表（方式一）：";
-  way1::remove_min_node(head1);
-  print_linked_list(head1->next);
+  way1::remove_min_node(head);
+  print_linked_list(head->next);
+}
 
-  std::cout << "\n";
+void test2() {
+  std::cout << "测试二：\n";
 
   // 方式二
-  std::vector<int> nums2 = {1, 4, 3, 6, 7, 5, 2};
+  std::vector<int> nums = {1, 4, 3, 6, 7, 5, 2};
 
   // 数组转链表（带头节点：INT_MAX 作为头节点标识）
-  Node *head2 = create_linked_list(nums2);
+  Node *head = create_linked_list(nums);
 
   // 当前链表
   std::cout << "初始链表：";
-  print_linked_list(head2->next);
+  print_linked_list(head->next);
 
   std::cout << "删除最小值后链表（方式二）：";
-  way2::remove_min_node(head2);
-  print_linked_list(head2->next);
+  way2::remove_min_node(head);
+  print_linked_list(head->next);
+}
+
+int main() {
+  std::cout << "\n";
 }

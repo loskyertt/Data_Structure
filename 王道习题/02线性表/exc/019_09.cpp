@@ -34,11 +34,17 @@ void find_intersection(const std::vector<int> &A, const std::vector<int> &B, con
   std::cout << "\n";
 }
 
-int main() {
+void test1() {
+  std::cout << "测试一：\n";
+
   std::vector<int> A = {1, 2, 4, 6, 8};
   std::vector<int> B = {-1, 2, 4, 7, 8};
   std::vector<int> C = {2, 3, 4, 6, 8};
 
   std::cout << "A, B, C 的交集：";
   find_intersection(A, B, C);
+}
+
+int main() {
+  test1();
 }

@@ -31,16 +31,22 @@ std::tuple<Node *, Node *> split_linked_list(Node *node) {
   return {head1, head2};
 }
 
-int main() {
-  // 奇数数组
-  std::vector<int> nums1 = {1, 2, 3, 4, 5, 6, 7, 8, 9};
-  Node *node1 = create_linked_list(nums1);
-  std::cout << "node1 初始：";
-  print_linked_list(node1->next);
+void test1() {
+  std::cout << "测试一（奇数个元素）：\n";
 
-  auto [node_a1, node_b1] = split_linked_list(node1);
-  std::cout << "node_a1: ";
-  print_linked_list(node_a1->next);
-  std::cout << "node_b1: ";
-  print_linked_list(node_b1->next);
+  // 奇数数组
+  std::vector<int> nums = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+  Node *node = create_linked_list(nums);
+  std::cout << "node1 初始：";
+  print_linked_list(node->next);
+
+  auto [node_a, node_b] = split_linked_list(node);
+  std::cout << "node_a: ";
+  print_linked_list(node_a->next);
+  std::cout << "node_b: ";
+  print_linked_list(node_b->next);
+}
+
+int main() {
+  test1();
 }

@@ -49,7 +49,9 @@ void remove_duplicated_val(std::vector<int> &nums) {
 } // namespace way2
 
 /* 03，04，05 基本上是同一种思路 */
-void test01() {
+void test1() {
+  std::cout << "测试一：\n";
+
   std::vector<int> nums1 = {1, 2, 4, 4, 4, 5, 6, 6, 7, 10, 10};
 
   std::vector<int> nums2 = {1, 3, 3, 4, 4, 6, 6, 6, 10, 11, 13};
@@ -65,7 +67,9 @@ void test01() {
   print_vector(nums2);
 }
 
-void test02() {
+void test2() {
+  std::cout << "测试二：\n";
+
   std::vector<int> nums1 = {1, 2, 4, 4, 4, 5, 6, 6, 7, 10, 10};
 
   std::vector<int> nums2 = {1, 3, 3, 4, 4, 6, 6, 6, 10, 11, 13};
@@ -82,9 +86,9 @@ void test02() {
 }
 
 int main() {
-  test01();
+  test1();
 
   std::cout << "\n";
 
-  test02();
+  test2();
 }

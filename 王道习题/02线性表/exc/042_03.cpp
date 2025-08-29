@@ -19,7 +19,9 @@ void reverse_linked_list(Node *node) {
   head->next = prev;
 }
 
-int main() {
+void test1() {
+  std::cout << "测试一：\n";
+
   std::vector<int> nums = {1, 2, 3, 4, 5, 6};
   Node *node = create_linked_list(nums);
 
@@ -29,4 +31,8 @@ int main() {
   std::cout << "逆序后的链表：";
   reverse_linked_list(node);
   print_linked_list(node->next);
+}
+
+int main() {
+  test1();
 }

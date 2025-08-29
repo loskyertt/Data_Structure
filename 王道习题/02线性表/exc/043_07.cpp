@@ -22,27 +22,40 @@ void remove_duplicated_node(Node *node) {
   }
 }
 
-int main() {
+void test1() {
+  std::cout << "测试一：\n";
 
   // 情况一
-  std::vector<int> nums1 = {1, 2, 4, 4, 4, 6, 8, 9, 10, 10, 14};
+  std::vector<int> nums = {1, 2, 4, 4, 4, 6, 8, 9, 10, 10, 14};
 
-  Node *node1 = create_linked_list(nums1);
-  std::cout << "node1 初始：";
-  print_linked_list(node1->next);
+  Node *node = create_linked_list(nums);
+  std::cout << "node 初始：";
+  print_linked_list(node->next);
 
-  std::cout << "node1 去重后：";
-  remove_duplicated_node(node1);
-  print_linked_list(node1->next);
+  std::cout << "node 去重后：";
+  remove_duplicated_node(node);
+  print_linked_list(node->next);
+}
 
-  // 情况二
-  std::vector<int> nums2 = {1, 2, 4, 4, 4, 6, 8, 9, 14, 14, 14};
+void test2() {
+  std::cout << "测试二：\n";
 
-  Node *node2 = create_linked_list(nums2);
+  // 情况二（末尾元素重复）
+  std::vector<int> nums = {1, 2, 4, 4, 4, 6, 8, 9, 14, 14, 14};
+
+  Node *node = create_linked_list(nums);
   std::cout << "node2 初始：";
-  print_linked_list(node2->next);
+  print_linked_list(node->next);
 
   std::cout << "node2 去重后：";
-  remove_duplicated_node(node2);
-  print_linked_list(node2->next);
+  remove_duplicated_node(node);
+  print_linked_list(node->next);
+}
+
+int main() {
+  test1();
+
+  std::cout << "\n";
+
+  test2();
 }

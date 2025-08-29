@@ -34,10 +34,26 @@ int boyerMoore(const std::vector<int> &nums) {
   return -1; // 表示没有
 }
 
-int main() {
-  std::vector<int> nums1 = {1, 4, 3, 4, 7, 4, 4, 2, 1, 4, 4, 4};
-  std::vector<int> nums2 = {1, 2, 3, 4, 7, 4, 4, 2, 1, 4, 4, 4};
+void test1() {
+  std::cout << "测试一：\n";
 
-  std::cout << "nums1 中的主元素：" << boyerMoore(nums1) << "\n";
-  std::cout << "nums2 中的主元素：" << boyerMoore(nums2) << "\n";
+  std::vector<int> nums = {1, 4, 3, 4, 7, 4, 4, 2, 1, 4, 4, 4};
+
+  std::cout << "nums1 中的主元素：" << boyerMoore(nums) << "\n";
+}
+
+void test2() {
+  std::cout << "测试二：\n";
+
+  std::vector<int> nums = {1, 2, 3, 4, 7, 4, 4, 2, 1, 4, 4, 4};
+
+  std::cout << "nums2 中的主元素：" << boyerMoore(nums) << "\n";
+}
+
+int main() {
+  test1();
+
+  std::cout << "\n";
+
+  test2();
 }

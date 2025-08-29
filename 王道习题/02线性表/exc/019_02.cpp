@@ -14,20 +14,34 @@ void reverse(std::vector<int> &nums) {
   }
 }
 
-int main() {
+// 测试一
+void test1() {
+  std::cout << "测试一：\n";
+
   // 奇数个元素
-  std::vector<int> nums1 = {1, 2, 3, 4, 5, 6, 7};
+  std::vector<int> nums = {1, 2, 3, 4, 5, 6, 7};
+
+  std::cout << "nums 逆序后（奇数个元素）：";
+  reverse(nums);
+  print_vector(nums);
+}
+
+// 测试二
+void test2() {
+  std::cout << "测试二：\n";
 
   // 偶数个元素
-  std::vector<int> nums2 = {1, 2, 3, 4, 5, 6};
+  std::vector<int> nums = {1, 2, 3, 4, 5, 6};
 
-  std::cout << "nums1 逆序后：";
-  reverse(nums1);
-  print_vector(nums1);
+  std::cout << "nums 逆序后（偶数个元素）：";
+  reverse(nums);
+  print_vector(nums);
+}
+
+int main() {
+  test1();
 
   std::cout << "\n";
 
-  std::cout << "nums2 逆序后：";
-  reverse(nums2);
-  print_vector(nums2);
+  test2();
 }

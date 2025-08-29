@@ -33,7 +33,9 @@ Node *get_public_nodes(Node *node_a, Node *node_b) {
   return head;
 }
 
-int main() {
+void test1() {
+  std::cout << "测试一：\n";
+
   std::vector<int> nums_a = {1, 2, 4, 6, 8, 9, 10, 13, 15, 16};
   std::vector<int> nums_b = {2, 3, 4, 5, 8, 10, 12, 13, 14, 16};
 
@@ -48,4 +50,8 @@ int main() {
   Node *node_c = get_public_nodes(node_a, node_b);
   std::cout << "公共节点构成的链表：";
   print_linked_list(node_c->next);
+}
+
+int main() {
+  test1();
 }

@@ -28,7 +28,10 @@ void remove_min(std::vector<int> &nums) {
   nums[idx] = nums[n - 1];
 }
 
-int main() {
+// 测试一
+void test1() {
+  std::cout << "测试一：\n";
+
   // 最小值为 2
   std::vector<int> nums = {3, 5, 7, 2, 9, 10, 6, 4};
 
@@ -43,4 +46,8 @@ int main() {
   } catch (const std::exception &e) {
     std::cout << "异常捕获：" << e.what() << "\n";
   }
+}
+
+int main() {
+  test1();
 }

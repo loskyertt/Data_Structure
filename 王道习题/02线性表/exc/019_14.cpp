@@ -56,11 +56,17 @@ int get_min_dist(const std::vector<int> &A, const std::vector<int> &B, const std
 }
 } // namespace way2
 
-int main() {
+void test1() {
+  std::cout << "测试一：\n";
+
   std::vector<int> A1 = {-1, 0, 9};
   std::vector<int> B1 = {-25, -10, 10, 11};
   std::vector<int> C1 = {2, 9, 17, 30, 41};
 
   std::cout << "A1 B1 C1 最小距离（方式一）：" << way1::get_min_dist(A1, B1, C1) << "\n";
   std::cout << "A1 B1 C1 最小距离（方式二）：" << way2::get_min_dist(A1, B1, C1) << "\n";
+}
+
+int main() {
+  test1();
 }

@@ -22,7 +22,9 @@ void remove_x(Node *node, int x) {
   }
 }
 
-int main() {
+void test1() {
+  std::cout << "测试一：\n";
+
   std::vector<int> nums = {1, 1, 4, 3, 1, 6, 7, 5, 1, 2, 1};
 
   // 数组转链表（带头节点：INT_MAX 作为头节点标识）
@@ -35,4 +37,8 @@ int main() {
   std::cout << "删除 1 后链表：";
   remove_x(head, 1);
   print_linked_list(head->next);
+}
+
+int main() {
+  test1();
 }
