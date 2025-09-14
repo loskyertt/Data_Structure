@@ -38,7 +38,7 @@ void test1() {
   std::vector<int> nums2 = {1, 2, 3, 4, 8, 11, 15};
 
   std::cout << "合并后的数组：";
-  vector<int> res = merge_nums(nums1, nums2);
+  std::vector<int> res = merge_nums(nums1, nums2);
   print_vector(res);
 }
 
