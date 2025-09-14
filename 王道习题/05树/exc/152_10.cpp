@@ -27,6 +27,8 @@ tree1::Node<int> *get_nearest_ancestor(tree1::Node<int> *root, int p, int q) {
 }
 } // namespace way1
 
+// 哈希表实现
+
 void test1() {
   std::cout << "测试一（递归实现）：\n";
 
